@@ -72,6 +72,7 @@ export default function Home() {
       </Head>
 
       <main>
+        <h1 className="title">Final Project</h1>
         <Login complete={complete}/>
         {loginStatus}
       </main>

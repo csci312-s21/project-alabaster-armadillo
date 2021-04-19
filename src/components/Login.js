@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import Box from "@material-ui/core/Box";
 import { useState } from "react";
 
 
@@ -34,9 +35,11 @@ export default function Login({ complete }) {
       </div>
       <p />
       <div>
-        <center><Button variant="contained" type="button" name="login" disabled = {email === "" || password === ""} onClick={() => complete({"email": email, "password": password})}>Log in</Button>
-        <p />
-        <Button variant="contained" type="button" name="login" onClick={() => complete()}>Sign up</Button></center>
+      <Box display="flex" justifyContent="space-between">
+        <Button variant="contained" type="button" name="login" disabled = {email === "" || password === ""} onClick={() => complete({"email": email, "password": password})}>Log in</Button>
+        
+        <Button variant="contained" type="button" name="login" onClick={() => complete()}>Sign up</Button>
+      </Box>
       </div>
     </div>
   );
