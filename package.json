@@ -3,7 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "contributors": [
-    "Your names here"
+    "Gretchen Doyle gldoyle@middlebury.edu",
+    "Hannah Rigdon hrigdon@middlebury.edu",
+    "Alex White acw@middlebury.edu",
+    "Kaylen Rivers krivers@middlebury.edu",
+    "Yaqi Huang yaqih@middlebury.edu",
+    "Sophie Eisenberg seisenberg@middlebury.edu"
   ],
   "scripts": {
     "dev": "next dev",
