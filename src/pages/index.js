@@ -49,16 +49,18 @@ export default function Home() {
   }
 
   const complete = (input) => {
-    if (emailValid(userArr, input) && passValid(userArr, input)) {
-    
-      setUser(input);
-      setLoginStatus(<p id="message">welcome {currentUser.email}!</p>);
+    if (input) {
+      if (emailValid(userArr, input) && passValid(userArr, input)) {
       
-    } else {
+        setUser(input);
+        setLoginStatus(<p id="message">welcome {currentUser.email}!</p>);
+        
+      } else {
 
-      const message = <p id="message">password and email do not match!</p>;
-      setLoginStatus(message);
-      
+        const message = <p id="message">password and email do not match!</p>;
+        setLoginStatus(message);
+        
+      }
     }
   }
 

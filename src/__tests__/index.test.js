@@ -2,9 +2,9 @@ import Home from "../pages/index";
 import { render, screen, fireEvent } from "@testing-library/react";
 
 
-describe("Login index.js tests", () => {
+describe("Top level integration tests", () => {
 
-let user;
+  let user;
 
   const handler = jest.fn();
 
@@ -27,7 +27,7 @@ test("Message if password and email do not match", () => {
     const passwordInput = container.querySelector("input[name = password");
     expect(passwordInput).toHaveValue("");
 
-    const loginButton = screen.getByRole("button", { name: "Login" });
+    const loginButton = screen.getByRole("button", { name: "Log in" });
     expect(loginButton).toBeDisabled();
   
     fireEvent.change(emailInput, { target: { value: "hrigdon@middlbury.edu" } });

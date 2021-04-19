@@ -25,7 +25,7 @@ describe("Login tests", () => {
     const passwordInput = container.querySelector("input[name=password");
     expect(passwordInput).toHaveValue("");
 
-    const loginButton = screen.getByRole("button", { name: "Login" });
+    const loginButton = screen.getByRole("button", { name: "Log in" });
     expect(loginButton).toBeDisabled();
 
     fireEvent.change(emailInput, { target: { value: user.email } });
@@ -46,7 +46,7 @@ describe("Login tests", () => {
     const passwordInput = container.querySelector("input[name = password");
     expect(passwordInput).toHaveValue("");
 
-    const loginButton = screen.getByRole("button", { name: "Login" });
+    const loginButton = screen.getByRole("button", { name: "Log in" });
     expect(loginButton).toBeDisabled();
 
     fireEvent.change(emailInput, { target: { value: user.email } });
@@ -73,7 +73,7 @@ describe("Login tests", () => {
     const passwordInput = container.querySelector("input[name = password");
     expect(passwordInput).toHaveValue("");
 
-    const loginButton = screen.getByRole("button", { name: "Login" });
+    const loginButton = screen.getByRole("button", { name: "Log in" });
     expect(loginButton).toBeDisabled();
 
     fireEvent.change(emailInput, { target: { value: user.email } });
