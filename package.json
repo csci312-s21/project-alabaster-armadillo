@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "contributors": [
-    "Sophie Eisenberg",
-    "Hannah Rigdon",
-    "",
-    "",
-    "",
-    ""
+    "Gretchen Doyle gldoyle@middlebury.edu",
+    "Hannah Rigdon hrigdon@middlebury.edu",
+    "Alex White acw@middlebury.edu",
+    "Kaylen Rivers krivers@middlebury.edu",
+    "Yaqi Huang yaqih@middlebury.edu",
+    "Sophie Eisenberg seisenberg@middlebury.edu"
   ],
   "scripts": {
     "dev": "next dev",
@@ -18,6 +18,7 @@
     "lint": "eslint src"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.3",
     "next": "10.0.8",
     "prop-types": "^15.7.2",
     "react": "17.0.1",
