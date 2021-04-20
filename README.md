@@ -131,7 +131,7 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 1. Travis CI
 
-2. Our application addresses the need to be more connected on our campus...
+2. Our application addresses the need to be more connected on our campus; it is an ephemeral status board that aims to encourage students to branch out and make new connections!
 
 3. https://alabaster-armadillo.herokuapp.com/
 
