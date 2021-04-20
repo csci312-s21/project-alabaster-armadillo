@@ -73,7 +73,7 @@ export default function Home() {
       if (emailValid(userArr, input) && passValid(userArr, input)) {
       
         setUser(input);
-        setLoginStatus(<p id="message">welcome {currentUser.email}!</p>);
+        setMode("view")
         
       } else {
 
@@ -89,7 +89,7 @@ export default function Home() {
     statusBoard = <StatusBoard posts={posts}/>
     postButton = <button onClick={() => setMode("add")} type="button">Post a Status</button>
   }else if (mode === "add"){
-    enterStatus = <EnterStatus user={"User"} complete={complete}/>
+    enterStatus = <EnterStatus user={currentUser.email} complete={complete}/>
   }else if (mode === "login"){
     login = <Login complete={completeLogin}/>
   }
