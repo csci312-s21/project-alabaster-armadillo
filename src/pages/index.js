@@ -1,6 +1,5 @@
 import Head from "next/head";
 import StatusBoard from "../../src/components/StatusBoard";
-import Post from "../../src/components/Post";
 import EnterStatus from "../../src/components/EnterStatus";
 import { useState } from "react";
 import styles from "../styles/Home.module.css";
@@ -10,7 +9,7 @@ export default function Home() {
   const currentTime = date.toISOString();
 
   const [posts, updatePosts] = useState([{user:"James", contents:"This is a post.", timestamp:currentTime.toLocaleString("en-US", {timeZone: "UTC"}), likes:["Kaylen", "Yaqi", "Gretchen"]}]);
-  const [mode, setMode] = useState('view');
+  const [mode, setMode] = useState("view");
 
   let statusBoard;
   let enterStatus;
@@ -23,16 +22,16 @@ export default function Home() {
       //Add post to copy of posts data
       copy_posts = [...copy_posts, new_post];
       updatePosts(copy_posts);
-      setMode('view');
+      setMode("view");
     }else{
-      setMode('view');
+      setMode("view");
     }
   }
 
-  if (mode === 'view'){
+  if (mode === "view"){
     statusBoard = <StatusBoard posts={posts}/>
-    postButton = <button onClick={() => setMode('add')} type="button">Post a Status</button>
-  }else if (mode === 'add'){
+    postButton = <button onClick={() => setMode("add")} type="button">Post a Status</button>
+  }else if (mode === "add"){
     enterStatus = <EnterStatus user={"User"} complete={complete}/>
   }
   
