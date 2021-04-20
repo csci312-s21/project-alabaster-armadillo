@@ -6,7 +6,7 @@ Props:
 StatusBoard should return a list of the posts along with information on user (author of the post), time of posting, and posted content.
 */
 
-import Post from "../Post";
+import Post from "../components/Post";
 
 export default function StatusBoard({ posts }) {
   const postLists = posts.map((post)=>(<Post key={posts.user} post={post}/>));
