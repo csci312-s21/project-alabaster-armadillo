@@ -4,7 +4,7 @@
 (X) set of closed user stories
 (X) working deployment on Heroku
 (?) travis reports build passing
-( ) team members have completed reflection
+(X) team members have completed reflection
 (X) demo
 
 ## Checklist notes
