@@ -11,27 +11,11 @@ Props:
 import PropTypes from "prop-types";
 import { useState } from "react";
 import Button from "@material-ui/core/Button";
-import TextField from '@material-ui/core/TextField';
+import TextField from "@material-ui/core/TextField";
 import Box from "@material-ui/core/Box";
-import { withStyles } from '@material-ui/core/styles';
 
 export default function EnterStatus({ user, complete }) {
-  const [contents, setContents] = useState("");
-
-  const StyledButton = withStyles({
-    root: {
-      background: 'linear-gradient(45deg, #F9BABF 30%, #F4D3BF 90%)',
-      borderRadius: 3,
-      border: 0,
-      color: 'white',
-      height: 48,
-      padding: '0 30px',
-      boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-    }
-  })(Button);
-
-  
-  
+  const [contents, setContents] = useState("");  
 
   //Post button
   const postButton = () => {
@@ -61,20 +45,20 @@ export default function EnterStatus({ user, complete }) {
               style = {{width: 500}}
               rows={12}
               id="contents"
-              value= {contents}
+              value={contents}
               placeholder="Enter the Scoop!"
               onChange={(evt) => setContents(evt.target.value)}
             />
           </center>
       
-          <p></p>
+          <p />
 
           <div>
             <Box display="flex" justifyContent="space-evenly">
              
-              <StyledButton variant="contained" onClick={() => postButton()}
-                type="button" disabled={(contents==="")} >Post</StyledButton>
-              <StyledButton variant="contained" onClick={() => complete()} type="button">Cancel</StyledButton>
+              <Button variant="contained" onClick={() => postButton()}
+                type="button" disabled={(contents==="")} >Post</Button>
+              <Button variant="contained" onClick={() => complete()} type="button">Cancel</Button>
               
             </Box>
           </div>

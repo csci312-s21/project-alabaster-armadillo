@@ -1,5 +1,9 @@
-import NextAuth from 'next-auth';
-import Providers from 'next-auth/providers';
+import NextAuth from "next-auth";
+import Providers from "next-auth/providers";
+
+async function signIn(user) {
+  return user.email.endsWith("@middlebury.edu");
+}
 
 const options = {
   providers: [
@@ -9,12 +13,9 @@ const options = {
       domain: process.env.AUTH0_DOMAIN,
     }),
   ],
-  callbacks:{signIn: signIn},
-  secret: process.env.NEXTAUTH_SECRET
+  secret: process.env.NEXTAUTH_SECRET,
+  callbacks: {signIn: signIn},
 };
 
-async function signIn(user) {
-  return user.email.endsWith("@middlebury.edu");
-}
-
 export default (req, res) => NextAuth(req, res, options);
+
