@@ -6,24 +6,12 @@ import Login from "../components/Login";
 import styles from "../styles/Home.module.css";
 import {useSession} from "next-auth/client";
 import Button from "@material-ui/core/Button";
-import { withStyles } from "@material-ui/core/styles";
 
 
 export default function Home() {
   const [session] = useSession();
   const date = new Date();
   const currentTime = date.toISOString();
-  const StyledButton = withStyles({
-    root: {
-      background: "linear-gradient(45deg, #F9BABF 30%, #F4D3BF 90%)",
-      borderRadius: 3,
-      border: 0,
-      color: "white",
-      height: 48,
-      padding: "0 30px",
-      boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-    }
-  })(Button);
 
 
   const [posts, updatePosts] = useState([{user:"James", contents:"This is a post.", timestamp:currentTime.toLocaleString("en-US", {timeZone: "UTC"}), likes:["Kaylen", "Yaqi", "Gretchen"]}]);
@@ -51,7 +39,7 @@ export default function Home() {
 
   if (mode === "view"){
     statusBoard = <StatusBoard posts={posts}/>
-    postButton = <StyledButton variant="contained" onClick={() => setMode("add")} type="button">Post a Status</StyledButton>
+    postButton = <Button variant="contained" onClick={() => setMode("add")} type="button">Post a Status</Button>
     logout = <Login/>
   }else if (mode === "add"){
     enterStatus = <EnterStatus user={currentUser.email} complete={complete}/>
