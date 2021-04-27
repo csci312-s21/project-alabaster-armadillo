@@ -12,7 +12,7 @@ export default function Login() {
 
   const StyledButton = withStyles({
     root: {
-      background: "linear-gradient(45deg, #F9BABF 30%, #F4D3BF 90%)",
+      background: "linear-gradient(45deg, #F9BABF 30%, #C5DEC9 90%)",
       borderRadius: 3,
       border: 0,
       color: "white",
