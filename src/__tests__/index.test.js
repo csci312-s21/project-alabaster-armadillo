@@ -1,3 +1,5 @@
+/*
+
 import Home from "../pages/index";
 import { render, screen, fireEvent } from "@testing-library/react";
 
@@ -42,3 +44,5 @@ test("Message if password and email do not match", () => {
     
   });
 });
+
+*/

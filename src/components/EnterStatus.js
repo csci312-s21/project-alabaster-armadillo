@@ -10,9 +10,28 @@ Props:
 */
 import PropTypes from "prop-types";
 import { useState } from "react";
+import Button from "@material-ui/core/Button";
+import TextField from '@material-ui/core/TextField';
+import Box from "@material-ui/core/Box";
+import { withStyles } from '@material-ui/core/styles';
 
 export default function EnterStatus({ user, complete }) {
   const [contents, setContents] = useState("");
+
+  const StyledButton = withStyles({
+    root: {
+      background: 'linear-gradient(45deg, #F9BABF 30%, #F4D3BF 90%)',
+      borderRadius: 3,
+      border: 0,
+      color: 'white',
+      height: 48,
+      padding: '0 30px',
+      boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    }
+  })(Button);
+
+  
+  
 
   //Post button
   const postButton = () => {
@@ -35,17 +54,31 @@ export default function EnterStatus({ user, complete }) {
           />
         <form>
 
-          <textarea
-           rows="10"
-           cols="50"
-           id="contents"
-            value= {contents}
-            placeholder="Enter your status here!"
-            onChange={(evt) => setContents(evt.target.value)}
-          />
-          <button onClick={() => postButton()}
-            type="button" disabled={(contents==="")} >Post</button>
-         <button onClick={() => complete()} type="button">Cancel</button>
+      
+          <center>
+            <TextField variant="outlined"
+              multiline
+              style = {{width: 500}}
+              rows={12}
+              id="contents"
+              value= {contents}
+              placeholder="Enter the Scoop!"
+              onChange={(evt) => setContents(evt.target.value)}
+            />
+          </center>
+      
+          <p></p>
+
+          <div>
+            <Box display="flex" justifyContent="space-evenly">
+             
+              <StyledButton variant="contained" onClick={() => postButton()}
+                type="button" disabled={(contents==="")} >Post</StyledButton>
+              <StyledButton variant="contained" onClick={() => complete()} type="button">Cancel</StyledButton>
+              
+            </Box>
+          </div>
+
         </form>
       </div>
     );

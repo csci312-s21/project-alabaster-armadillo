@@ -20,6 +20,8 @@
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "next": "10.0.8",
+    "next-auth": "^3.18.0",
+    "next-connect": "^0.10.1",
     "prop-types": "^15.7.2",
     "react": "17.0.1",
     "react-dom": "17.0.1"
