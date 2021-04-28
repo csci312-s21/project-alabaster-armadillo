@@ -8,6 +8,7 @@ import {useSession} from "next-auth/client";
 import Button from "@material-ui/core/Button";
 
 
+
 export default function Home() {
   const [session] = useSession();
   const date = new Date();
@@ -20,8 +21,7 @@ export default function Home() {
 
   let statusBoard;
   let enterStatus;
-  let login;
-  let logout;
+  let log;
   let postButton;
 
   const complete = function com(new_post) {
@@ -40,12 +40,12 @@ export default function Home() {
   if (mode === "view"){
     statusBoard = <StatusBoard posts={posts}/>
     postButton = <Button variant="contained" onClick={() => setMode("add")} type="button">Post a Status</Button>
-    logout = <Login/>
+    log = <Login/>
   }else if (mode === "add"){
     enterStatus = <EnterStatus user={currentUser.email} complete={complete}/>
-    logout = <Login/>
+    log = <Login/>
   }else if (mode === "login"){
-    login = <Login/>
+    log = <Login/>
     if (session) {
       setUser(session.user);
       setMode("view");
@@ -62,8 +62,10 @@ export default function Home() {
       </Head>
 
       <main>
+
+        {log}
       
-        <img src="/ScoopLogo.png" alt="Logo"/>
+        <img src="/ScoopLogo3.png" alt="Logo"/>
 
         {statusBoard}
         {enterStatus}
@@ -71,8 +73,6 @@ export default function Home() {
 
         <p />
         
-        {login}
-        {logout}
 
       </main>
 
