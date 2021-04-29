@@ -41,6 +41,7 @@ export default function Home() {
     statusBoard = <StatusBoard posts={posts}/>
     postButton = <Button variant="contained" onClick={() => setMode("add")} type="button">Post a Status</Button>
     log = <Login/>
+    console.log(currentUser);
   }else if (mode === "add"){
     enterStatus = <EnterStatus user={currentUser.email} complete={complete}/>
     log = <Login/>
