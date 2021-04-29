@@ -18,7 +18,7 @@ export default function EnterStatus({ user, complete }) {
   const [contents, setContents] = useState("");
   const [tags, setTags] = useState([]);
 
-  let selectedTags = tags.map((tag)=>{
+  const selectedTags = tags.map((tag)=>{
     return <Button key={tag.value} variant="contained" type="button" name={tag.value} onClick={() =>addTag(tag, false)}>{tag.name}</Button>})
 
   console.log(tags);
@@ -30,13 +30,13 @@ export default function EnterStatus({ user, complete }) {
       tags.forEach((oldTag)=>{if (oldTag.value === tag.value)repeat=true})
 
       if (!repeat) {
-        let newTags = [...tags];
+        const newTags = [...tags];
         newTags.push(tag);
         setTags(newTags)
       }
       
     }else{
-      let newTags = tags.filter((atag)=>{
+      const newTags = tags.filter((atag)=>{
         return atag !== tag;
       });
       
