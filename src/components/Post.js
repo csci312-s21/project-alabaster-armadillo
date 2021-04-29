@@ -13,12 +13,17 @@ import { useState } from "react";
 export default function Post({ post }) {
 
   const [likes, setLikes] = useState();
+  const tags = post.tags.map((postTag)=>(<box className = {styles.tags}>{postTag.name}</box>));
+  console.log(post.tags);
 
     return (
     <div className = {styles.post} > 
       <h2> {post.user} </h2>
       <p> {post.contents}</p>
       <p className = {styles.timestamp}>{post.timestamp}</p>
+      <div >
+        <ul>{tags}</ul>
+      </div>
       <span className = {styles.like} onClick={() => setLikes(likes)} type="button">♥</span>
     </div>);
 

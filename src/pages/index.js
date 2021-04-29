@@ -11,10 +11,10 @@ import styles from "../styles/Home.module.css";
 export default function Home() {
   const date = new Date();
   const currentTime = date.toISOString();
-  const userArr = [{"email": "seisenberg@middlebury.edu", "password":"password123", "friends":["Hannah", "Brooke"]}, {"email": "hrigdon@middlebury.edu", "password":"coding", "friends":[]}]
+  const userArr = [{"email":"k@middlebury.edu","password":"k"},{"email": "seisenberg@middlebury.edu", "password":"password123", "friends":["Hannah", "Brooke"]}, {"email": "hrigdon@middlebury.edu", "password":"coding", "friends":[]}]
 
 
-  const [posts, updatePosts] = useState([{user:"James", contents:"This is a post.", timestamp:currentTime.toLocaleString("en-US", {timeZone: "UTC"}), likes:["Kaylen", "Yaqi", "Gretchen"]}]);
+  const [posts, updatePosts] = useState([{key: "James", user:"James", contents:"This is a post.", timestamp:currentTime.toLocaleString("en-US", {timeZone: "UTC"}), likes:["Kaylen", "Yaqi", "Gretchen"],tags:[]}]);
   const [mode, setMode] = useState("login");
   const [currentUser, setUser] = useState("");
   const [loginStatus, setLoginStatus] = useState(<p id="message" />)

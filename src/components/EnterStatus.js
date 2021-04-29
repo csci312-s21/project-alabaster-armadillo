@@ -8,11 +8,41 @@ Props:
  user - the username of the user who is posting 
 
 */
+
 import PropTypes from "prop-types";
 import { useState } from "react";
+import Button from "@material-ui/core/Button";
+
 
 export default function EnterStatus({ user, complete }) {
   const [contents, setContents] = useState("");
+  const [tags, setTags] = useState([]);
+
+  let selectedTags = tags.map((tag)=>{
+    return <Button key={tag.value} variant="contained" type="button" name={tag.value} onClick={() =>addTag(tag, false)}>{tag.name}</Button>})
+
+  console.log(tags);
+
+  const addTag = function addtag(tag, bool) {
+  
+    if (bool){
+      let repeat = false;
+      tags.forEach((oldTag)=>{if (oldTag.value === tag.value)repeat=true})
+
+      if (!repeat) {
+        let newTags = [...tags];
+        newTags.push(tag);
+        setTags(newTags)
+      }
+      
+    }else{
+      let newTags = tags.filter((atag)=>{
+        return atag !== tag;
+      });
+      
+      setTags(newTags);
+    }
+  }
 
   //Post button
   const postButton = () => {
@@ -20,11 +50,13 @@ export default function EnterStatus({ user, complete }) {
     const currentTime = date.toLocaleString("en-US", {timeZone: "UTC"});
 
     const new_post = {
+        key: user,
         user: user,
         contents: contents,
-        timestamp: currentTime
+        timestamp: currentTime,
+        tags: tags
       };
-    
+      
     complete(new_post);
   };
 
@@ -34,18 +66,29 @@ export default function EnterStatus({ user, complete }) {
             value={user}         
           />
         <form>
-
+          <div>
           <textarea
-           rows="10"
-           cols="50"
-           id="contents"
+          rows="10"
+          cols="50"
+          id="contents"
             value= {contents}
             placeholder="Enter your status here!"
-            onChange={(evt) => setContents(evt.target.value)}
-          />
-          <button onClick={() => postButton()}
-            type="button" disabled={(contents==="")} >Post</button>
-         <button onClick={() => complete()} type="button">Cancel</button>
+            onChange={(evt) => setContents(evt.target.value)}/>
+          </div>
+          {selectedTags}
+          <div>
+            <select name="tags" id="tags">
+              <option value="meal" onClick={() => addTag({value:"meal", name:"Grab a Meal"}, true)}>Grab a Meal</option>
+              <option value="study" onClick={() => addTag({value:"study", name:"Study Time"}, true)}>Study Time</option>
+              <option value="proc" onClick={() => addTag({value:"proc", name:"Proc"}, true)}>Proc</option>
+              <option value="ross" onClick={() => addTag({value:"ross", name:"Ross"}, true)}>Ross</option>
+              <option value="atwater" onClick={() => addTag({value:"atwater", name:"Atwater"}, true)}>Atwater</option>
+            </select>
+          </div>
+          <div>
+            <button onClick={() => postButton()} type="button" disabled={(contents==="")} >Post</button>
+            <button onClick={() => complete()} type="button">Cancel</button>
+          </div>
         </form>
       </div>
     );

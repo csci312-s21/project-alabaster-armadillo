@@ -2,10 +2,10 @@
   margin-left: 20px;
   margin-right: 20px;
   width: 50rem;
-  background:rgb(233, 233, 233);
-  border: 2px solid rgb(170, 159, 202);
+  background:rgb(251, 250, 250);
+  border: 2px solid rgb(217, 224, 219);
   padding-top: 10px;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
   padding-left: 50px;
   padding-right: 50px;
 }
@@ -15,5 +15,17 @@
 }
 
 .like{
-  font-size: 250%;
+  font-size: 200%;
+}
+
+.tags{
+  background:rgb(107, 129, 113);
+  border: 2px solid rgb(97, 133, 107);
+  color:rgb(230, 243, 234);
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  text-align:center;
+  margin-left: 5px;
 }
