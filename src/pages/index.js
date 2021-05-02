@@ -6,14 +6,20 @@ import Login from "../components/Login";
 import styles from "../styles/Home.module.css";
 import {useSession} from "next-auth/client";
 import Button from "@material-ui/core/Button";
-
+// import {
+//   knex,
+//   getUsers,
+//   getUser,
+//   deleteUser,
+//   updateUser,
+//   addUser
+// } from "../lib/backend-utils";
 
 
 export default function Home() {
   const [session] = useSession();
   const date = new Date();
   const currentTime = date.toISOString();
-
 
   const [posts, updatePosts] = useState([{user:"James", contents:"This is a post.", timestamp:currentTime.toLocaleString("en-US", {timeZone: "UTC"}), likes:["Kaylen", "Yaqi", "Gretchen"]}]);
   const [mode, setMode] = useState("login");
@@ -51,8 +57,6 @@ export default function Home() {
       setMode("view");
     }
   }
-
-
 
   return (
     <div className={styles.container}>

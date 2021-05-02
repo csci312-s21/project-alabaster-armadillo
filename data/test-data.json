@@ -1,0 +1,21 @@
+[
+  {
+    "firstName": "Sophie",
+    "lastName": "Eisenberg",
+    "email": "seisenberg@middlebury.edu",
+    "post": "Pair-programming at the Grille!",
+    "friends": ["gldoyle@middlebury.edu"],
+    "pendingFriends": [],
+    "id": 4
+  },
+
+  {
+    "firstName": "Gretchen",
+    "lastName": "Doyle",
+    "email": "gldoyle@middlebury.edu",
+    "post": "Wooohooo coding!",
+    "friends":["seisenberg@middlebury.edu"],
+    "pendingFriends": ["hrigdon@middlebury.edu"],
+    "id": 16
+  }
+]

@@ -1,13 +1,11 @@
+const fs = require("fs");
 
-exports.seed = function(knex) {
+exports.seed = function (knex) {
+  const contents = fs.readFileSync("./data/seed.json");
+  const data = JSON.parse(contents);
+
   // Deletes ALL existing entries
-  return knex('table_name').del()
-    .then(function () {
-      // Inserts seed entries
-      return knex('table_name').insert([
-        {id: 1, colName: 'rowValue1'},
-        {id: 2, colName: 'rowValue2'},
-        {id: 3, colName: 'rowValue3'}
-      ]);
-    });
+  return knex("users")
+    .del()
+    .then(() => knex.batchInsert("users", data, 2));
 };
