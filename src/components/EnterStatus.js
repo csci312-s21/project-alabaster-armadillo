@@ -18,11 +18,6 @@ export default function EnterStatus({ user, complete }) {
   const [contents, setContents] = useState("");
   const [tags, setTags] = useState([]);
 
-  const selectedTags = tags.map((tag)=>{
-    return <Button key={tag.value} variant="contained" type="button" name={tag.value} onClick={() =>addTag(tag, false)}>{tag.name}</Button>})
-
-  console.log(tags);
-
   const addTag = function addtag(tag, bool) {
   
     if (bool){
@@ -43,6 +38,13 @@ export default function EnterStatus({ user, complete }) {
       setTags(newTags);
     }
   }
+
+  const selectedTags = tags.map((tag)=>{
+    return <Button key={tag.value} variant="contained" type="button" name={tag.value} onClick={() =>addTag(tag, false)}>{tag.name}</Button>});
+
+
+
+  
 
   //Post button
   const postButton = () => {
@@ -77,12 +79,16 @@ export default function EnterStatus({ user, complete }) {
           </div>
           {selectedTags}
           <div>
-            <select name="tags" id="tags">
-              <option value="meal" onClick={() => addTag({value:"meal", name:"Grab a Meal"}, true)}>Grab a Meal</option>
-              <option value="study" onClick={() => addTag({value:"study", name:"Study Time"}, true)}>Study Time</option>
+            <select name="placetags" id="placetags">
+              <option value="title"> Locations</option>
               <option value="proc" onClick={() => addTag({value:"proc", name:"Proc"}, true)}>Proc</option>
               <option value="ross" onClick={() => addTag({value:"ross", name:"Ross"}, true)}>Ross</option>
               <option value="atwater" onClick={() => addTag({value:"atwater", name:"Atwater"}, true)}>Atwater</option>
+            </select>
+            <select name="activitytags" id="activitytags">
+              <option value="title"> Activities</option>
+              <option value="meal" onClick={() => addTag({value:"meal", name:"Grab a Meal"}, true)}>Grab a Meal</option>
+              <option value="study" onClick={() => addTag({value:"study", name:"Study Time"}, true)}>Study Time</option>
             </select>
           </div>
           <div>

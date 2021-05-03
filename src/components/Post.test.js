@@ -38,8 +38,11 @@ describe("Post tests", () => {
 
   test("tag is displayed", () => {
     const { getByText } = render(<Post post={post} />);
-    expect(getByText(post.tags.name)).toBeInTheDocument();
-    expect(getByText(post.tags.name)).toBeVisible();
+    post.tags.forEach((posttag)=>{
+      expect(getByText(posttag.name)).toBeInTheDocument();
+      expect(getByText(posttag.name)).toBeVisible();
+      })
+    
   });
 
 });

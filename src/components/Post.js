@@ -13,8 +13,8 @@ import { useState } from "react";
 export default function Post({ post }) {
 
   const [likes, setLikes] = useState();
-  const tags = post.tags.map((postTag)=>(<box className = {styles.tags}>{postTag.name}</box>));
-  console.log(post.tags);
+  const tags = post.tags.map((postTag)=>(<box key={postTag.name} className = {styles.tags}>{postTag.name}</box>));
+  
 
     return (
     <div className = {styles.post} > 
