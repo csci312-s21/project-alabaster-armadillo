@@ -6,6 +6,7 @@ import Login from "../components/Login";
 import styles from "../styles/Home.module.css";
 import {useSession} from "next-auth/client";
 import Button from "@material-ui/core/Button";
+import NavBar from "../components/NavBar";
 // import {
 //   knex,
 //   getUsers,
@@ -29,6 +30,8 @@ export default function Home() {
   let enterStatus;
   let log;
   let postButton;
+  let navBar;
+  let logo;
 
   const complete = function com(new_post) {
     if (new_post) {
@@ -44,14 +47,17 @@ export default function Home() {
   }
 
   if (mode === "view"){
+    navBar = <NavBar/>;
     statusBoard = <StatusBoard posts={posts}/>
     postButton = <Button variant="contained" onClick={() => setMode("add")} type="button">Post a Status</Button>
-    log = <Login/>
+    //log = <Login/>
   }else if (mode === "add"){
+    navBar = <NavBar/>;
     enterStatus = <EnterStatus user={currentUser.email} complete={complete}/>
-    log = <Login/>
+    //log = <Login/>
   }else if (mode === "login"){
     log = <Login/>
+    logo = <img src="/ScoopLogo3.png" alt="Logo"/>
     if (session) {
       setUser(session.user);
       setMode("view");
@@ -66,12 +72,11 @@ export default function Home() {
       </Head>
 
       <main>
-
+      
+        {navBar}
+        
+        {logo}
         {log}
-
-        <img src="/ScoopLogo3.png" alt="Logo"/>
-
-
         {statusBoard}
         {enterStatus}
         {postButton}

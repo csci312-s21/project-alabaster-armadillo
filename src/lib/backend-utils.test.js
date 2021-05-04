@@ -4,8 +4,8 @@ import {
   knex,
   getUsers,
   getUser,
-  deleteUser,
-  updateUser,
+  //deleteUser,
+  //updateUser,
   addUser,
 } from "./backend-utils";
 
@@ -15,18 +15,18 @@ describe("Tests of the database utility functions", () => {
     await knex.migrate.rollback();
     await knex.migrate.latest();
     await knex.seed.run();
-
-
   });
 
+
+/*
   describe("get users", () => {
 
     test("getUsers gets all users", async () => {
 
       const users = await getUsers();
 
-      sampleUsers.sort((a, b) => a.title.localeCompare(b.title));
-      users.sort((a, b) => a.title.localeCompare(b.title));
+      /*sampleUsers.sort((a, b) => a.lastName.localeCompare(b.lastName));
+      users.sort((a, b) => alastName.localeCompare(b.lastName));
       expect(users).toEqual(sampleUsers);
     });
 
@@ -121,8 +121,8 @@ describe("Tests of the database utility functions", () => {
       expect(article.title).toBe(sample.title);
       expect(article.contents).toBe("");
       expect(article.edited).toBe(sample.edited);
-    });*/
+    });
 
-  });
+  });*/
 
 });
