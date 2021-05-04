@@ -1,3 +1,16 @@
+// import fetchMock from "fetch-mock-jest";
+// import { act } from "react-dom/test-utils";
+import { render } from "@testing-library/react";
+
+describe("smoke test", () => {
+  test("Smoke test", async () => {
+    render(<h2> hey </h2>);
+    // await act(async () => {
+    //   await fetchMock.flush(true);
+    // });
+  });
+});
+
 /*import sampleUsers from "../../data/test-data.json";
 
 import {
