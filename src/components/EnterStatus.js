@@ -118,7 +118,7 @@ export default function EnterStatus({ user, complete }) {
           </div>
              
               <Button variant="contained" onClick={() => postButton()}
-                type="button" disabled={(contents==="")} >Post</Button>
+                type="button" disabled={(contents==="") || (contents.length>61)} >Post</Button>
               <Button variant="contained" onClick={() => complete()} type="button">Cancel</Button>
               
             </Box>
