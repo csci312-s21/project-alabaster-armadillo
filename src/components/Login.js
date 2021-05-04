@@ -18,6 +18,7 @@ export default function Login() {
       color: "white",
       height: 48,
       padding: "0 30px"
+    
     }
   })(Button);
 

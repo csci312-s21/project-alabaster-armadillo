@@ -1,4 +1,4 @@
-import sampleUsers from "../../data/test-data.json";
+/*import sampleUsers from "../../data/test-data.json";
 
 import {
   knex,
@@ -18,7 +18,7 @@ describe("Tests of the database utility functions", () => {
   });
 
 
-/*
+
   describe("get users", () => {
 
     test("getUsers gets all users", async () => {
@@ -123,6 +123,6 @@ describe("Tests of the database utility functions", () => {
       expect(article.edited).toBe(sample.edited);
     });
 
-  });*/
+  });
 
-});
+});*/
