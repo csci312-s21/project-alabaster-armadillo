@@ -12,7 +12,8 @@ Props:
 import PropTypes from "prop-types";
 import { useState } from "react";
 import Button from "@material-ui/core/Button";
-
+import TextField from "@material-ui/core/TextField";
+import Box from "@material-ui/core/Box";
 
 export default function EnterStatus({ user, complete }) {
   const [contents, setContents] = useState("");
@@ -68,16 +69,23 @@ export default function EnterStatus({ user, complete }) {
             value={user}         
           />
         <form>
+          <center>
+            <TextField variant="outlined"
+              multiline
+              style = {{width: 500}}
+              rows={12}
+              id="contents"
+              value={contents}
+              placeholder="Enter the Scoop!"
+              onChange={(evt) => setContents(evt.target.value)}
+            />
+          </center>
+      
+          <p />
+
           <div>
-          <textarea
-          rows="10"
-          cols="50"
-          id="contents"
-            value= {contents}
-            placeholder="Enter your status here!"
-            onChange={(evt) => setContents(evt.target.value)}/>
-          </div>
-          {selectedTags}
+            <Box display="flex" justifyContent="space-evenly">
+              {selectedTags}
           <div>
             <select name="placetags" id="placetags">
               <option value="title"> Locations</option>
@@ -91,9 +99,12 @@ export default function EnterStatus({ user, complete }) {
               <option value="study" onClick={() => addTag({value:"study", name:"Study Time"}, true)}>Study Time</option>
             </select>
           </div>
-          <div>
-            <button onClick={() => postButton()} type="button" disabled={(contents==="")} >Post</button>
-            <button onClick={() => complete()} type="button">Cancel</button>
+             
+              <Button variant="contained" onClick={() => postButton()}
+                type="button" disabled={(contents==="")} >Post</Button>
+              <Button variant="contained" onClick={() => complete()} type="button">Cancel</Button>
+              
+            </Box>
           </div>
         </form>
       </div>
