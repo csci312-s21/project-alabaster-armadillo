@@ -1,3 +1,4 @@
+
 exports.up = function(knex) {
     return knex.schema.createTable("accounts", table=>{
       table.increments("id").primary();
@@ -40,6 +41,7 @@ exports.up = function(knex) {
   
       table.unique("email");
     })
+  
     .createTable("verification_requests", table=>{
       table.increments("id").primary();
       table.string("identifier", 255).notNullable();
@@ -51,4 +53,3 @@ exports.up = function(knex) {
 exports.down = function(knex) {
   return knex.schema.dropTableIfExists('accounts');
 }
-
