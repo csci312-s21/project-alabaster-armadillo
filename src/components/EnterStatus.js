@@ -85,8 +85,9 @@ export default function EnterStatus({ user, complete }) {
 
           <div>
             <Box display="flex" justifyContent="space-evenly">
-              {selectedTags}
+            {selectedTags}
           <div>
+          
             <select name="placetags" id="placetags">
               <option value="title"> Locations</option>
               <option value="proc" onClick={() => addTag({value:"proc", name:"Proc"}, true)}>Proc</option>
@@ -101,7 +102,7 @@ export default function EnterStatus({ user, complete }) {
           </div>
              
               <Button variant="contained" onClick={() => postButton()}
-                type="button" disabled={(contents==="")} >Post</Button>
+                type="button" disabled={(contents==="") || (contents.length>61)} >Post</Button>
               <Button variant="contained" onClick={() => complete()} type="button">Cancel</Button>
               
             </Box>
