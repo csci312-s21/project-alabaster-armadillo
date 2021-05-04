@@ -11,6 +11,10 @@ describe("smoke test", () => {
   });
 });
 
+
+/*import sampleUsers from "../../data/test-data.json";
+
+
 /*import sampleUsers from "../../data/test-data.json";
 import {
   knex,
@@ -26,9 +30,17 @@ describe("Tests of the database utility functions", () => {
     await knex.migrate.latest();
     await knex.seed.run();
   });
+
+
+
+
+
   describe("get users", () => {
     test("getUsers gets all users", async () => {
       const users = await getUsers();
+
+
+
       /*sampleUsers.sort((a, b) => a.lastName.localeCompare(b.lastName));
       users.sort((a, b) => alastName.localeCompare(b.lastName));
       expect(users).toEqual(sampleUsers);
@@ -110,5 +122,7 @@ describe("Tests of the database utility functions", () => {
       expect(article.contents).toBe("");
       expect(article.edited).toBe(sample.edited);
     });
+
   });
+
 });*/

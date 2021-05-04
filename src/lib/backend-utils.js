@@ -25,10 +25,10 @@ export const knex = knexInitializer(
 /**
  * Find all users 
  *
- * @returns list of users
+ * @returns list of users sorted by lastName
  */
 export async function getUsers() {
-  const rows = await knex("users").select();
+  const rows = await knex("panthers").select();
   return rows;
 }
 
@@ -39,7 +39,7 @@ export async function getUsers() {
  * @returns a user object, or null if the user can't be found
  */
 export async function getUser(id) {
-  const [rows] = await knex("users").select().where({id:id});
+  const [rows] = await knex("panthers").where({id:id}).select();
   return rows || null;
 }
 
@@ -51,7 +51,7 @@ export async function getUser(id) {
  * @returns a Boolean indicating success
  */
 export async function deleteUser(id) {
-  const rows = await knex("users").del().where({id:id});
+  const rows = await knex("panthers").del().where({id:id});
   return (rows === 1);
 }
 
@@ -63,7 +63,7 @@ export async function deleteUser(id) {
  */
 export async function updateUser(user) {
   if (user.id > 0) {
-    const rows = await knex("users").update(user).where({id:user.id});
+    const rows = await knex("panthers").update(user).where({id:user.id});
     if (rows !== -1) {
       return true;
     } else {
@@ -77,18 +77,18 @@ export async function updateUser(user) {
 /**
  * Add a new user to the data store
  *
- * @param {number} article
+ * @param {number} user
  * @returns the user with a new id attached
  */
 export async function addUser(user) {
-  const id = await knex("users").insert({
+  const id = await knex("panthers").insert({
     name: user.name, 
     email: user.email ? user.email : "", 
     image: user.image}, 
     ["id"]
   );
 
-  const newUser = await knex("users").select().where({id:id[0]});
+  const newUser = await knex("panthers").select().where({id:id[0]});
 
   return newUser[0];
 }
