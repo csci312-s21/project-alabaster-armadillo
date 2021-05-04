@@ -8,6 +8,7 @@ Props:
  user - the username of the user who is posting 
 
 */
+
 import PropTypes from "prop-types";
 import { useState } from "react";
 import Button from "@material-ui/core/Button";
@@ -15,7 +16,36 @@ import TextField from "@material-ui/core/TextField";
 import Box from "@material-ui/core/Box";
 
 export default function EnterStatus({ user, complete }) {
-  const [contents, setContents] = useState("");  
+  const [contents, setContents] = useState("");
+  const [tags, setTags] = useState([]);
+
+  const addTag = function addtag(tag, bool) {
+  
+    if (bool){
+      let repeat = false;
+      tags.forEach((oldTag)=>{if (oldTag.value === tag.value)repeat=true})
+
+      if (!repeat) {
+        const newTags = [...tags];
+        newTags.push(tag);
+        setTags(newTags)
+      }
+      
+    }else{
+      const newTags = tags.filter((atag)=>{
+        return atag !== tag;
+      });
+      
+      setTags(newTags);
+    }
+  }
+
+  const selectedTags = tags.map((tag)=>{
+    return <Button key={tag.value} variant="contained" type="button" name={tag.value} onClick={() =>addTag(tag, false)}>{tag.name}</Button>});
+
+
+
+  
 
   //Post button
   const postButton = () => {
@@ -23,11 +53,13 @@ export default function EnterStatus({ user, complete }) {
     const currentTime = date.toLocaleString("en-US", { timeZone: "America/New_York" });
 
     const new_post = {
+        key: user,
         user: user,
         contents: contents,
-        timestamp: currentTime
+        timestamp: currentTime,
+        tags: tags
       };
-    
+      
     complete(new_post);
   };
 
@@ -37,8 +69,6 @@ export default function EnterStatus({ user, complete }) {
             value={user}         
           />
         <form>
-
-      
           <center>
             <TextField variant="outlined"
               multiline
@@ -55,6 +85,20 @@ export default function EnterStatus({ user, complete }) {
 
           <div>
             <Box display="flex" justifyContent="space-evenly">
+              {selectedTags}
+          <div>
+            <select name="placetags" id="placetags">
+              <option value="title"> Locations</option>
+              <option value="proc" onClick={() => addTag({value:"proc", name:"Proc"}, true)}>Proc</option>
+              <option value="ross" onClick={() => addTag({value:"ross", name:"Ross"}, true)}>Ross</option>
+              <option value="atwater" onClick={() => addTag({value:"atwater", name:"Atwater"}, true)}>Atwater</option>
+            </select>
+            <select name="activitytags" id="activitytags">
+              <option value="title"> Activities</option>
+              <option value="meal" onClick={() => addTag({value:"meal", name:"Grab a Meal"}, true)}>Grab a Meal</option>
+              <option value="study" onClick={() => addTag({value:"study", name:"Study Time"}, true)}>Study Time</option>
+            </select>
+          </div>
              
               <Button variant="contained" onClick={() => postButton()}
                 type="button" disabled={(contents==="")} >Post</Button>
@@ -62,7 +106,6 @@ export default function EnterStatus({ user, complete }) {
               
             </Box>
           </div>
-
         </form>
       </div>
     );

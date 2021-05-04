@@ -12,6 +12,8 @@ import { useState, useEffect } from "react";
 
 export default function Post({ post }) {
   const [likes, setLikes] = useState();
+  const tags = post.tags.map((postTag)=>(<box key={postTag.name} className = {styles.tags}>{postTag.name}</box>));
+  
 
 
   const [counter, setCounter] = useState(8);
@@ -76,7 +78,13 @@ export default function Post({ post }) {
       <p> { post.contents }</p>
       
       <p className = {styles.timestamp}>{post.timestamp}</p>
+
+      <div >
+        <ul>{tags}</ul>
+      </div>
+
       <p> {counter}</p>
+
       <span className = {styles.like} onClick={() => setLikes(likes)} type="button">♥</span>
     </div>
 

@@ -12,6 +12,7 @@ describe("Post tests", () => {
       user: "Name of sample user",
       contents: "Body of the sample post",
       timestamp: new Date("2020-06-10T14:54:40Z").toLocaleString(),
+      tags: [{value:"ross", name:"Ross"},{value:"atwater", name:"Atwater"}]
     };
   });
 
@@ -34,4 +35,14 @@ describe("Post tests", () => {
     expect(getByText(expectedDate)).toBeInTheDocument();
     expect(getByText(expectedDate)).toBeVisible();
   });
+
+  test("tag is displayed", () => {
+    const { getByText } = render(<Post post={post} />);
+    post.tags.forEach((posttag)=>{
+      expect(getByText(posttag.name)).toBeInTheDocument();
+      expect(getByText(posttag.name)).toBeVisible();
+      })
+    
+  });
+
 });

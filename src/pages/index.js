@@ -18,13 +18,14 @@ import NavBar from "../components/NavBar";
 //   addUser
 // } from "../lib/backend-utils";
 
-
 export default function Home() {
   const [session] = useSession();
   const date = new Date();
   const currentTime = date.toISOString();
 
-  const [posts, updatePosts] = useState([{user:"James", contents:"This is a post.", timestamp:currentTime.toLocaleString("en-US", {timeZone: "UTC"}), likes:["Kaylen", "Yaqi", "Gretchen"]}]);
+  const [posts, updatePosts] = useState(
+    [{key: "James", user:"James", contents:"This is a post.", timestamp:currentTime.toLocaleString("en-US", {timeZone: "UTC"}), likes:["Kaylen", "Yaqi", "Gretchen"],tags:[{value:"ross", name:"Ross"},{value:"atwater", name:"Atwater"}]}]
+  );
   const [mode, setMode] = useState("login");
   const [currentUser, setUser] = useState("");
 

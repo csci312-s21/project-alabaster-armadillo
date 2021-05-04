@@ -35,7 +35,6 @@ describe("EnterStatus tests", () => {
     expect(newPost.contents).toEqual(post.contents);
   });
 
-
   test("Post button is disabled without contents", () => {
     const { container } = render(<EnterStatus complete={handler} />);
 
