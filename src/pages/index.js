@@ -1,121 +1,118 @@
 import Head from "next/head";
-
 import StatusBoard from "../../src/components/StatusBoard";
 import EnterStatus from "../../src/components/EnterStatus";
 import { useState } from "react";
 import Login from "../components/Login";
 import styles from "../styles/Home.module.css";
+import {useSession} from "next-auth/client";
+import Button from "@material-ui/core/Button";
 
+import NavBar from "../components/NavBar";
 
+// import {
+//   knex,
+//   getUsers,
+//   getUser,
+//   deleteUser,
+//   updateUser,
+//   addUser
+// } from "../lib/backend-utils";
 
 export default function Home() {
+  const [session] = useSession();
   const date = new Date();
   const currentTime = date.toISOString();
-  const userArr = [{"email": "seisenberg@middlebury.edu", "password":"password123", "friends":["Hannah", "Brooke"]}, {"email": "hrigdon@middlebury.edu", "password":"coding", "friends":[]}]
 
-
-  const [posts, updatePosts] = useState([{user:"James", contents:"This is a post.", timestamp:currentTime.toLocaleString("en-US", {timeZone: "UTC"}), likes:["Kaylen", "Yaqi", "Gretchen"]}]);
+  const [posts, updatePosts] = useState(
+    [{key: "James", user:"James", contents:"This is a post.", timestamp:currentTime.toLocaleString("en-US", {timeZone: "UTC"}), likes:["Kaylen", "Yaqi", "Gretchen"],tags:[{value:"ross", name:"Ross"},{value:"atwater", name:"Atwater"}]}]
+  );
   const [mode, setMode] = useState("login");
   const [currentUser, setUser] = useState("");
-  const [loginStatus, setLoginStatus] = useState(<p id="message" />)
 
   let statusBoard;
   let enterStatus;
-  let login;
+  let log;
   let postButton;
+  let navBar;
+  let logo;
 
-  const complete = function com(new_post) {
-    if(new_post){
-      //Create deep copy of collection
-      let copy_posts = JSON.parse(JSON.stringify(posts));
+ const complete = function com(newPost) {
+
+  if(newPost){
+    /*
+    if(posts.user === currentUser){
+      console.log("UPDATING POST!");
+      let copyPosts = posts.map((p) => {
+        if(p.user === newPost.user){
+          return newPost; 
+        }else{
+          return p;
+        }
+      updatePosts(copyPosts);
+      });
+
+   }else{
+      console.log("ADDING POST!");
+     //Create deep copy of collection
+      let copyPosts = JSON.parse(JSON.stringify(posts));
       //Add post to copy of posts data
-      copy_posts = [...copy_posts, new_post];
-      updatePosts(copy_posts);
+      copyPosts = [...copyPosts, newPost];
+      updatePosts(copyPosts);
+   }
+   */
+    //Create deep copy of collection
+      let copyPosts = JSON.parse(JSON.stringify(posts));
+      //Add post to copy of posts data
+      copyPosts = [...copyPosts, newPost];
+      updatePosts(copyPosts);
       setMode("view");
-    }else{
+
+    //Set timer for post to expire after certain # of seconds --> 4000 = 4 secs 
+    setTimeout(() => {
+        const finalPosts = posts.filter(post => post !== newPost);
+        updatePosts(finalPosts);
+      }, 8000) //currently timer for posts is set at 4 seconds
+  } else {
       setMode("view");
-    }
   }
-  
-  
-  const emailValid = (users, input) => {
-
-    let valid = false;
-    
-
-    users.forEach((each) => {
-      if (each.email === input.email && input.email.substring(input.email.indexOf("@") + 1) === "middlebury.edu") {
-        valid = true;
-      }
-    })
-
-    return valid;
-
-  }
-
-  const passValid = (users, input) => {
-
-    let valid = false;
-
-    users.forEach((each) => {
-      if (each.password === input.password) {
-        valid = true;
-      }
-    })
-
-    return valid;
-
-  }
-
-  
-  const completeLogin = (input) => {
-    if (input) {
-      if (emailValid(userArr, input) && passValid(userArr, input)) {
-      
-        setUser(input);
-        setMode("view")
-        
-      } else {
-
-        const message = <p id="message">password and email do not match!</p>;
-        setLoginStatus(message);
-        
-      }
-    }
-  }
-
+}
 
   if (mode === "view"){
+    navBar = <NavBar/>;
     statusBoard = <StatusBoard posts={posts}/>
-    postButton = <button onClick={() => setMode("add")} type="button">Post a Status</button>
+    postButton = <Button variant="contained" onClick={() => setMode("add")} type="button">Post a Status</Button>
+    //log = <Login/>
   }else if (mode === "add"){
+    navBar = <NavBar/>;
     enterStatus = <EnterStatus user={currentUser.email} complete={complete}/>
+    //log = <Login/>
   }else if (mode === "login"){
-    login = <Login complete={completeLogin}/>
+    log = <Login/>
+    logo = <img src="/ScoopLogo3.png" alt="Logo"/>
+    if (session) {
+      setUser(session.user);
+      setMode("view");
+    }
   }
-
-
 
   return (
     <div className={styles.container}>
       <Head>
-        <title>MiddMap</title>
+        <title>The Scoop</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-
-        <h1 className="title">The Scoop</h1>
+        {navBar}    
+        {logo}
+        {log}
         {statusBoard}
         {enterStatus}
         {postButton}
-
-        {login}
-        {loginStatus}
-
+        <p /> 
       </main>
-
-      <footer>A CS 312 Project</footer>
+      <footer>A CS 312 Project </footer>
     </div>
   );
+
 }

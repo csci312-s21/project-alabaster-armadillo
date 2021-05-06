@@ -6,6 +6,7 @@ Test to see if post button switches interface back to StatusBoard and adds the p
 import { render, screen, fireEvent } from "@testing-library/react";
 import EnterStatus from "./EnterStatus";
 
+
 describe("EnterStatus tests", () => {
   let post;
   const handler = jest.fn();
@@ -33,7 +34,6 @@ describe("EnterStatus tests", () => {
 
     expect(newPost.contents).toEqual(post.contents);
   });
-
 
   test("Post button is disabled without contents", () => {
     const { container } = render(<EnterStatus complete={handler} />);
