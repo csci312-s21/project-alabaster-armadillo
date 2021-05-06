@@ -28,7 +28,7 @@ export const knex = knexInitializer(
  * @returns list of users sorted by lastName
  */
 export async function getUsers() {
-  const rows = await knex("panthers").select();
+  const rows = await knex("panthers").select().orderBy("lastName");
   return rows;
 }
 
@@ -82,10 +82,11 @@ export async function updateUser(user) {
  */
 export async function addUser(user) {
   const id = await knex("panthers").insert({
-    name: user.name, 
+    firstName: user.firstName,
+    lastName: user.lastName,
+    post: user.post, 
     email: user.email ? user.email : "", 
-    image: user.image}, 
-    ["id"]
+    image: user.image}
   );
 
   const newUser = await knex("panthers").select().where({id:id[0]});

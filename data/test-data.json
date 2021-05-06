@@ -4,8 +4,7 @@
     "lastName": "Eisenberg",
     "email": "seisenberg@middlebury.edu",
     "post": "Pair-programming at the Grille!",
-    "friends": ["gldoyle@middlebury.edu"],
-    "pendingFriends": [],
+    "image": "image",
     "id": 4
   },
 
@@ -14,8 +13,7 @@
     "lastName": "Doyle",
     "email": "gldoyle@middlebury.edu",
     "post": "Wooohooo coding!",
-    "friends":["seisenberg@middlebury.edu"],
-    "pendingFriends": ["hrigdon@middlebury.edu"],
+    "image": "image",
     "id": 16
   }
 ]

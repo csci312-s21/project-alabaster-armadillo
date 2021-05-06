@@ -1,13 +1,17 @@
 [
   {
-    "name": "Sophie Eisenberg",
+    "firstName": "Sophie",
+    "lastName": "Eisenberg",
     "email": "seisenberg@middlebury.edu",
-    "image": "image"
+    "post": "Pair-programming at the Grille!",
+    "image": "image",
   },
 
   {
-    "name": "Gretchen Doyle",
+    "firstName": "Gretchen",
+    "lastName": "Doyle",
     "email": "gldoyle@middlebury.edu",
-    "image": "image"
+    "post": "Wooohooo coding!",
+    "image": "image",
   }
 ]
