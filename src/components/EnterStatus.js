@@ -19,6 +19,14 @@ export default function EnterStatus({ user, complete }) {
   const [contents, setContents] = useState("");
   const [tags, setTags] = useState([]);
 
+  const handleKeyDown = (e) => {
+    if (contents.length > 61) {
+      if (e.keyCode !== 8) { // if the event is not backspace, disable typing
+        e.preventDefault();
+      }
+    }
+  };
+
   const addTag = function addtag(tag, bool) {
   
     if (bool){
@@ -42,9 +50,6 @@ export default function EnterStatus({ user, complete }) {
 
   const selectedTags = tags.map((tag)=>{
     return <Button key={tag.value} variant="contained" type="button" name={tag.value} onClick={() =>addTag(tag, false)}>{tag.name}</Button>});
-
-
-
   
 
   //Post button
@@ -70,13 +75,16 @@ export default function EnterStatus({ user, complete }) {
           />
         <form>
           <center>
-            <TextField variant="outlined"
+            <TextField name="limitedtextfield"
+              variant="outlined"
               multiline
               style = {{width: 500}}
-              rows={12}
+              rows={1}
+              maxlength="60"  
               id="contents"
               value={contents}
-              placeholder="Enter the Scoop!"
+              placeholder="Enter the Scoop (in less than 60 characters)!"
+              onKeyDown={handleKeyDown}
               onChange={(evt) => setContents(evt.target.value)}
             />
           </center>
