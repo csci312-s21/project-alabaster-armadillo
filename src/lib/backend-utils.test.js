@@ -1,6 +1,6 @@
 // import fetchMock from "fetch-mock-jest";
 // import { act } from "react-dom/test-utils";
-import { render } from "@testing-library/react";
+/*import { render } from "@testing-library/react";
 
 describe("smoke test", () => {
   test("Smoke test", async () => {
@@ -9,13 +9,12 @@ describe("smoke test", () => {
     //   await fetchMock.flush(true);
     // });
   });
-});
+});*/
 
 
-/*import sampleUsers from "../../data/test-data.json";
+import sampleUsers from "../../data/test-data.json";
 
 
-/*import sampleUsers from "../../data/test-data.json";
 import {
   knex,
   getUsers,
@@ -24,6 +23,8 @@ import {
   //updateUser,
   addUser,
 } from "./backend-utils";
+
+
 describe("Tests of the database utility functions", () => {
   beforeEach(async () => {
     await knex.migrate.rollback();
@@ -33,28 +34,27 @@ describe("Tests of the database utility functions", () => {
 
 
 
-
-
   describe("get users", () => {
     test("getUsers gets all users", async () => {
       const users = await getUsers();
 
-
-
-      /*sampleUsers.sort((a, b) => a.lastName.localeCompare(b.lastName));
-      users.sort((a, b) => alastName.localeCompare(b.lastName));
+      sampleUsers.sort((a, b) => a.lastName.localeCompare(b.lastName));
+      users.sort((a, b) => a.lastName.localeCompare(b.lastName));
       expect(users).toEqual(sampleUsers);
     });
+
     test("getUser gets a single user", async () => {
       const sampleUser = sampleUsers[Math.floor(sampleUsers.length / 2)];
       const user = await getUser(sampleUser.id);
       expect(user).toEqual(sampleUser);
     });
+
     test("getUser returns null if no user matching the id is found", async () => {
       const result = await getUser(-1);
       expect(result).toBeNull();
     });
   });
+
   describe("add users", () => {
     test("addUser returns a user with new id", async () => {
       const sample = {
@@ -62,16 +62,13 @@ describe("Tests of the database utility functions", () => {
         "lastName": "Huang",
         "email": "yaqih@middlebury.edu",
         "post": "Mark your calendars for Mischords May 20!",
-        "friends": ["gldoyle@middlebury.edu"],
-        "pendingFriends": [],
+        "image": "image",
       };
       const user = await addUser(sample);
       expect(user.firstName).toBe(sample.firstName);
       expect(user.lastName).toBe(sample.lastName);
       expect(user.email).toBe(sample.email);
       expect(user.post).toBe(sample.post);
-      expect(user.friends).toBe(sample.friends);
-      expect(user.pendingFriends).toBe(sample.pendingFriends);
       expect(user.id).toBeGreaterThanOrEqual(0);
     });
   /*
@@ -121,8 +118,8 @@ describe("Tests of the database utility functions", () => {
       expect(article.title).toBe(sample.title);
       expect(article.contents).toBe("");
       expect(article.edited).toBe(sample.edited);
-    });
+    });*/
 
   });
 
-});*/
+});

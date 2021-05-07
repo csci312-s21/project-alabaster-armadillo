@@ -1,4 +1,3 @@
-
 exports.up = function (knex) {
   return knex.schema.createTable("panthers", (table) => {
     table.increments("id");
@@ -6,8 +5,7 @@ exports.up = function (knex) {
     table.string("lastName").notNullable();
     table.string("email").unique().notNullable();
     table.text("post");
-    table.specificType("friends", "text ARRAY");
-    table.specificType("pendingFriends", "text ARRAY");
+    table.string("image").notNullable();
   });
 };
 
