@@ -43,6 +43,11 @@ export async function getUser(id) {
   return rows || null;
 }
 
+export async function getUserFromEmail(email) {
+  const [rows] = await knex("panthers").where({email:email}).select();
+  return rows || null;
+}
+
 
 /**
  * Remove the user associated with the provided id from the data storage

@@ -1,6 +1,6 @@
 exports.up = function (knex) {
   return knex.schema.createTable("panthers", (table) => {
-    table.increments("id");
+    table.foreign("id").references("users.id").onDelete("CASCADE");
     table.string("firstName").notNullable();
     table.string("lastName").notNullable();
     table.string("email").unique().notNullable();

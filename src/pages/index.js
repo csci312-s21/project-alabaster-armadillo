@@ -10,12 +10,12 @@ import Button from "@material-ui/core/Button";
 import NavBar from "../components/NavBar";
 
 // import {
-//   knex,
-//   getUsers,
-//   getUser,
-//   deleteUser,
-//   updateUser,
-//   addUser
+// knex,
+// //   getUsers,
+// //   getUser,
+// //   deleteUser,
+// //   updateUser,
+// //   addUser
 // } from "../lib/backend-utils";
 
 export default function Home() {
