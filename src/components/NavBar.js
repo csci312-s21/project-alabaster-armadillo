@@ -32,7 +32,7 @@ const StyledAppBar = withStyles({
 
 const useStyles = makeStyles((theme) => ({
   grow: {
-    flexGrow: 1,
+    flexGrow: .25,
   },
  
   title: {
