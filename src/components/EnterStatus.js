@@ -96,7 +96,7 @@ export default function EnterStatus({ user, complete }) {
               multiline
               style = {{width: 500}}
               rows={1}
-              maxlength="60"  
+              maxLength="60"  
               id="contents"
               value={contents}
               placeholder="Enter the Scoop (in less than 60 characters)!"

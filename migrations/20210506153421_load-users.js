@@ -5,6 +5,9 @@ exports.up = function (knex) {
     table.string("lastName").notNullable();
     table.string("email").unique().notNullable();
     table.text("post");
+    table.string("postTime");
+    table.string("postLikes");
+    table.string("postReports");
     table.string("image").notNullable();
   });
 };

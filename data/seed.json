@@ -4,6 +4,9 @@
     "lastName": "Eisenberg",
     "email": "seisenberg@middlebury.edu",
     "post": "Pair-programming at the Grille!",
+    "postTime": "",
+    "postLikes": "",
+    "postReports": "",
     "image": "image",
   },
 
@@ -12,6 +15,9 @@
     "lastName": "Doyle",
     "email": "gldoyle@middlebury.edu",
     "post": "Wooohooo coding!",
+    "postTime":"",
+    "postLikes": "", 
+    "postReports": "",
     "image": "image",
   }
 ]

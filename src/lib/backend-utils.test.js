@@ -62,13 +62,19 @@ describe("Tests of the database utility functions", () => {
         "lastName": "Huang",
         "email": "yaqih@middlebury.edu",
         "post": "Mark your calendars for Mischords May 20!",
-        "image": "image",
+        "postTime": "59",
+        "postLikes" : "",
+        "postReports": "",
+        "image": "image"
       };
       const user = await addUser(sample);
       expect(user.firstName).toBe(sample.firstName);
       expect(user.lastName).toBe(sample.lastName);
       expect(user.email).toBe(sample.email);
       expect(user.post).toBe(sample.post);
+      expect(user.postTime).toBe(sample.postTime);
+      expect(user.postLikes).toBe(sample.postLikes);
+      expect(user.postReports).toBe(sample.postReports);
       expect(user.id).toBeGreaterThanOrEqual(0);
     });
   /*
