@@ -22,7 +22,7 @@ export default function EnterStatus({ user, complete }) {
 
 
   const handleKeyDown = (e) => {
-    if (contents.length > 61) {
+    if (contents.length > 60) {
       if (e.keyCode !== 8) { // if the event is not backspace, disable typing
         e.preventDefault();
       }
