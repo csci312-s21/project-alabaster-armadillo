@@ -84,7 +84,10 @@ export async function addUser(user) {
   const id = await knex("panthers").insert({
     firstName: user.firstName,
     lastName: user.lastName,
-    post: user.post, 
+    post: user.post,
+    postTime: user.postTime,
+    postLikes: user.postLikes,
+    postReports: user.postReports, 
     email: user.email ? user.email : "", 
     image: user.image}
   );

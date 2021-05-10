@@ -4,7 +4,10 @@
     "lastName": "Eisenberg",
     "email": "seisenberg@middlebury.edu",
     "post": "Pair-programming at the Grille!",
-    "image": "image",
+    "postTime": "",
+    "postLikes": "",
+    "postReports": "",
+    "image": "image"
   },
 
   {
@@ -12,6 +15,20 @@
     "lastName": "Doyle",
     "email": "gldoyle@middlebury.edu",
     "post": "Wooohooo coding!",
-    "image": "image",
+    "postTime":"",
+    "postLikes": "", 
+    "postReports": "",
+    "image": "image"
+  },
+
+  {
+    "firstName": "Hannah",
+    "lastName": "Rigdon",
+    "email": "hrigdon@middlebury.edu",
+    "post": "Let's gooooo I'm a database queeeeen!",
+    "postTime":"",
+    "postLikes": "", 
+    "postReports": "",
+    "image": "image"
   }
 ]
