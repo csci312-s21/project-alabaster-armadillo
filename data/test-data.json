@@ -21,5 +21,17 @@
     "postReports": "",
     "image": "image",
     "id": 16 
+  },
+
+  {
+    "firstName": "Hannah",
+    "lastName": "Rigdon",
+    "email": "hrigdon@middlebury.edu",
+    "post": "Let's gooooo I'm a database queeeeen!",
+    "postTime":"",
+    "postLikes": "", 
+    "postReports": "",
+    "image": "image",
+    "id": 91
   }
 ]
