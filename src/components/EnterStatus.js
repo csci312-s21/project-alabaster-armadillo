@@ -14,10 +14,12 @@ import { useState } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Box from "@material-ui/core/Box";
+import { withStyles } from "@material-ui/core/styles";
 
 export default function EnterStatus({ user, complete }) {
   const [contents, setContents] = useState("");
   const [tags, setTags] = useState([]);
+
 
   const handleKeyDown = (e) => {
     if (contents.length > 61) {
@@ -26,6 +28,19 @@ export default function EnterStatus({ user, complete }) {
       }
     }
   };
+
+  const StyledButton = withStyles({
+    root: {
+      background: "linear-gradient(45deg, #384F3E 30%, #384F3E 90%)",
+      borderRadius: 3,
+      border: 0,
+      color: "white",
+      height: 48,
+      padding: "0 10px"
+      
+    
+    }
+  })(Button);
 
   const addTag = function addtag(tag, bool) {
   
@@ -49,8 +64,9 @@ export default function EnterStatus({ user, complete }) {
   }
 
   const selectedTags = tags.map((tag)=>{
-    return <Button key={tag.value} variant="contained" type="button" name={tag.value} onClick={() =>addTag(tag, false)}>{tag.name}</Button>});
-  
+
+    return <StyledButton key={tag.value} variant="contained" type="button" name={tag.value} onClick={() =>addTag(tag, false)}>{tag.name}</StyledButton>});
+
 
   //Post button
   const postButton = () => {
@@ -90,10 +106,12 @@ export default function EnterStatus({ user, complete }) {
           </center>
       
           <p />
-
+          <div>
+            {selectedTags}
+          </div>
+          <p />
           <div>
             <Box display="flex" justifyContent="space-evenly">
-            {selectedTags}
           <div>
           
             <select name="placetags" id="placetags">
