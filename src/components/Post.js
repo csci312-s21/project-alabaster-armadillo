@@ -12,9 +12,6 @@ import { useState, useEffect } from "react";
 
 export default function Post({ post }) {
   const [likes, setLikes] = useState();
-  const tags = post.tags.map((postTag)=>(<box key={postTag.name} className = {styles.tags}>{postTag.name}</box>));
-  
-
 
   const [counter, setCounter] = useState(8);
 
@@ -24,53 +21,6 @@ export default function Post({ post }) {
   }, [counter]);
 
 
-/*
-  const calculateTimeLeft = () => {
-    const startTime = new Date(post.timestamp);
-    let endTime = new Date();
-    endTime.setSeconds(endTime.getSeconds() + 10000);
-    let difference = +new Date(endTime) - +new Date(startTime);
-    let timeLeft = {};
-
-  if (difference > 0) {
-    timeLeft = {
-      days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-      hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-      minutes: Math.floor((difference / 1000 / 60) % 60),
-      seconds: Math.floor((difference / 1000) % 60)
-    };
-  }
-    return timeLeft;
-  }
-
-
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-
-
-  // Re-render timer every 1 second
-  useEffect(() => {
-    const timer=setTimeout(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
-    // Clear timeout if the component is unmounted
-    return () => clearTimeout(timer);
-  });
-
-  const timerComponents = [];
-
-  Object.keys(timeLeft).forEach((interval) => {
-    if (!timeLeft[interval]) {
-      return;
-    }
-
-    timerComponents.push(
-    <span>
-      {timeLeft[interval]} {interval}{" "}
-    </span>
-  );
-});
-*/
-
     return (
 
     <div className = {styles.post} >
@@ -78,10 +28,6 @@ export default function Post({ post }) {
       <p> { post.contents }</p>
       
       <p className = {styles.timestamp}>{post.timestamp}</p>
-
-      <div >
-        <ul>{tags}</ul>
-      </div>
 
       <p> {counter}</p>
 

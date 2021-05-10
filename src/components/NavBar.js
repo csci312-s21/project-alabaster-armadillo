@@ -10,12 +10,10 @@ import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Box from "@material-ui/core/Box"
-
+import EnterStatus from "../../src/components/EnterStatus";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
-
 import FavoriteIcon from "@material-ui/icons/Favorite";
-
 import Login from "../components/Login";
 
 const StyledAppBar = withStyles({
@@ -24,7 +22,7 @@ const StyledAppBar = withStyles({
     borderRadius: 3,
     border: 0,
     color: "black",
-    height: 150,
+    height: 280,
     padding: "0 5px",
     boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
   } 
@@ -55,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NavBar() {
+export default function NavBar({user, complete}) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -133,12 +131,10 @@ export default function NavBar() {
 
   return (
     <div className={classes.grow}>
-      <StyledAppBar position="static">
+      <StyledAppBar position="sticky">
         <Toolbar>
         <img src="/ScoopLogo_clipped.png" alt="Logo"  width="243" height="144" align = "left"/>
-      
           <div className={classes.sectionDesktop}>
-          
             <IconButton aria-label="show 17 new notifications" color="inherit">
               <Badge badgeContent={17} color="secondary">
                 <FavoriteIcon />
@@ -170,6 +166,7 @@ export default function NavBar() {
           <Login> </Login>
           </Box>
         </Toolbar>
+        <EnterStatus user={user} complete={complete}/>
       </StyledAppBar>
       {renderMobileMenu}
       {renderMenu}
