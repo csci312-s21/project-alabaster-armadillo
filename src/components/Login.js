@@ -2,13 +2,6 @@
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 
-// import {
-//   knex,
-//   getUsers,
-//   getUser,
-//   addUser,
-// } from "../lib/backend-utils";
-
 import {
   signIn, 
   signOut,

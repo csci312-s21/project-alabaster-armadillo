@@ -6,7 +6,6 @@ import styles from "../styles/Home.module.css";
 import {useSession} from "next-auth/client";
 import NavBar from "../components/NavBar";
 
-
 export default function Home() {
   const [session] = useSession();
   const date = new Date();
