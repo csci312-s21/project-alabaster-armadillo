@@ -36,13 +36,4 @@ describe("Post tests", () => {
     expect(getByText(expectedDate)).toBeVisible();
   });
 
-  test("tag is displayed", () => {
-    const { getByText } = render(<Post post={post} />);
-    post.tags.forEach((posttag)=>{
-      expect(getByText(posttag.name)).toBeInTheDocument();
-      expect(getByText(posttag.name)).toBeVisible();
-      })
-    
-  });
-
 });
