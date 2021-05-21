@@ -39,13 +39,14 @@ export async function getUsers() {
  * @returns a user object, or null if the user can't be found
  */
 export async function getUser(id) {
-  const [rows] = await knex("panthers").where({id:id}).select();
+  const [rows] = await knex("panthers").where({user_id:id}).select();
   return rows || null;
 }
 
 export async function getUserFromEmail(email) {
-  const [rows] = await knex("panthers").where({email:email}).select();
-  return rows || null;
+   const [rows] = await knex("users").select();
+   //.where({email:email})
+   return rows || null;
 }
 
 
@@ -56,7 +57,7 @@ export async function getUserFromEmail(email) {
  * @returns a Boolean indicating success
  */
 export async function deleteUser(id) {
-  const rows = await knex("panthers").del().where({id:id});
+  const rows = await knex("panthers").del().where({user_id:id});
   return (rows === 1);
 }
 
@@ -68,7 +69,7 @@ export async function deleteUser(id) {
  */
 export async function updateUser(user) {
   if (user.id > 0) {
-    const rows = await knex("panthers").update(user).where({id:user.id});
+    const rows = await knex("panthers").update(user).where({user_id:user.user_id});
     if (rows !== -1) {
       return true;
     } else {
@@ -87,17 +88,17 @@ export async function updateUser(user) {
  */
 export async function addUser(user) {
   const id = await knex("panthers").insert({
+    user_id: user.user_id,
     firstName: user.firstName,
     lastName: user.lastName,
     post: user.post,
     postTime: user.postTime,
     postLikes: user.postLikes,
     postReports: user.postReports, 
-    email: user.email ? user.email : "", 
     image: user.image}
   );
 
-  const newUser = await knex("panthers").select().where({id:id[0]});
+  const newUser = await knex("panthers").select().where({user_id:id[0]});
 
   return newUser[0];
 }

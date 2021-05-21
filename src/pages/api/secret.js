@@ -10,8 +10,8 @@ const handler = nc().get(async (req, res) => {
   const session = await getSession({ req });
   if (session) {
     res.status(200).json({message:`${session.user.email}: Don't Panic!`});
-    const user = await getUserFromEmail(session.user.email);
-    console.log(user);
+    // const user = await getUserFromEmail(session.user.email);
+    // console.log(user);
     if (user) {
       res.status(200).json(user);
     } else {

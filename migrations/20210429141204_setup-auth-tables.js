@@ -32,10 +32,7 @@ exports.up = function(knex) {
     })
     .createTable("users", table=>{
       table.increments("id").primary();
-      table.string("firstName", 255);
-      table.string("lastName", 255);
       table.string("email", 255);
-      table.string("post", 255);
       table.timestamp("email_verified");
       table.string("image", 255);
       table.timestamp("created_at").notNullable().defaultTo(knex.fn.now());

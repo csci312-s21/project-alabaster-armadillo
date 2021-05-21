@@ -2,9 +2,11 @@ import Head from "next/head";
 import StatusBoard from "../../src/components/StatusBoard";
 import { useState } from "react";
 import Login from "../components/Login";
+import Profile from "../components/Profile";
 import styles from "../styles/Home.module.css";
 import {useSession} from "next-auth/client";
 import NavBar from "../components/NavBar";
+
 
 export default function Home() {
   const [session] = useSession();
@@ -21,30 +23,50 @@ export default function Home() {
   let log;
   let navBar;
   let logo;
+  let profile;
 
- const complete = function com(newPost) {
+  //Fetch users from the server
+  const getUsers = async () => {
+    const response = await fetch(`/api/posts`);
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    const userData = await response.json();
+    updatePosts(userData);
+  };
+
+
+ const complete = async (newPost) => {
 
   if(newPost){
-    //Create deep copy of collection
-      let copyPosts = JSON.parse(JSON.stringify(posts));
-      //Add post to copy of posts data
-      copyPosts = [...copyPosts, newPost];
-      updatePosts(copyPosts);
+
+    const response = await fetch(
+      `/api/posts/${currentUser.user_id}`,
+      {
+        method: "POST",
+        body: JSON.stringify(newPost),
+        headers: new Headers({ "Content-type": "application/json" }),
+      });
       setMode("view");
 
     //Set timer for post to expire after certain # of seconds --> 4000 = 4 secs 
     setTimeout(() => {
         const finalPosts = posts.filter(post => post !== newPost);
         updatePosts(finalPosts);
-      }, 8000) //currently timer for posts is set at 4 seconds
+      }, 8000) //currently timer for posts is set at 8 seconds
   } else {
       setMode("view");
   }
 }
-
-  if (mode === "view"){
+  console.log(currentUser);
+  console.log(currentUser.firstName);
+  if(mode === "view" && !(currentUser.firstName)){
+    profile = <Profile complete = {complete} user = {currentUser} /> 
+  }
+  else if (mode === "view" && currentUser.firstName){
+    console.log(currentUser);
     navBar = <NavBar user={currentUser.email} complete={complete}/>;
-    statusBoard = <StatusBoard posts={posts}/>
+    statusBoard = <StatusBoard posts={posts} user={currentUser}/>
     //enterStatus = <EnterStatus user={currentUser.email} complete={complete}/>
     //log = <Login/>
   }else if (mode === "login"){
@@ -66,6 +88,7 @@ export default function Home() {
       <main>
         {navBar}    
         {logo}
+        {profile}
         {log}
         {statusBoard}
         <p /> 

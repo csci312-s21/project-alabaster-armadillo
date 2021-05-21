@@ -25,14 +25,12 @@ import {
 } from "./backend-utils";
 
 
-describe("Tests of the database utility functions", () => {
+describe.only("Tests of the database utility functions", () => {
   beforeEach(async () => {
     await knex.migrate.rollback();
     await knex.migrate.latest();
     await knex.seed.run();
   });
-
-
 
   describe("get users", () => {
     test("getUsers gets all users", async () => {
@@ -45,7 +43,7 @@ describe("Tests of the database utility functions", () => {
 
     test("getUser gets a single user", async () => {
       const sampleUser = sampleUsers[Math.floor(sampleUsers.length / 2)];
-      const user = await getUser(sampleUser.id);
+      const user = await getUser(sampleUser.user_id);
       expect(user).toEqual(sampleUser);
     });
 
@@ -60,7 +58,6 @@ describe("Tests of the database utility functions", () => {
       const sample = {
         "firstName": "Yaqi",
         "lastName": "Huang",
-        "email": "yaqih@middlebury.edu",
         "post": "Mark your calendars for Mischords May 20!",
         "postTime": "59",
         "postLikes" : "",
@@ -70,12 +67,11 @@ describe("Tests of the database utility functions", () => {
       const user = await addUser(sample);
       expect(user.firstName).toBe(sample.firstName);
       expect(user.lastName).toBe(sample.lastName);
-      expect(user.email).toBe(sample.email);
       expect(user.post).toBe(sample.post);
       expect(user.postTime).toBe(sample.postTime);
       expect(user.postLikes).toBe(sample.postLikes);
       expect(user.postReports).toBe(sample.postReports);
-      expect(user.id).toBeGreaterThanOrEqual(0);
+      expect(user.user_id).toBeGreaterThanOrEqual(0);
     });
   /*
     test("addUser should reject user with no title", async () => {
