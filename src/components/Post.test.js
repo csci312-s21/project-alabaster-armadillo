@@ -4,6 +4,7 @@ Tests to see if all three features of a post is displayed.
 import { render } from "@testing-library/react";
 import Post from "./Post";
 
+
 const sample = {
   firstName: "Yaqi",
   lastName: "Huang",
@@ -13,6 +14,7 @@ const sample = {
   postReports: "",
   image: "image"
 };
+
 
 describe("Post tests", () => {
 
@@ -40,5 +42,6 @@ describe("Post tests", () => {
     expect(getByText(samplePost.postTime)).toBeInTheDocument();
     expect(getByText(samplePost.postTime)).toBeVisible();
   });
+
 
 });
