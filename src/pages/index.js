@@ -70,15 +70,14 @@ export default function Home() {
    
     if (newPost){
 
-      /*const placePost = await fetch(
+      await fetch(
         `/api/posts/${session.user.id}`,
         {
           method: "PUT",
           body: JSON.stringify(newPost),
           headers: new Headers({ "Content-type": "application/json" }),
         });
-      
-      placePost();*/
+
       setMode("view");
         
       //Set timer for post to expire after certain # of seconds --> 4000 = 4 secs 
