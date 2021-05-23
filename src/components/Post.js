@@ -36,7 +36,7 @@ export default function Post({ user }) {
 }
 
 Post.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 //<small> { counter }</small>

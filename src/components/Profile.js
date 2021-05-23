@@ -31,7 +31,7 @@ export default function Profile({ changeMode }) {
       {
         method: "POST",
         body: JSON.stringify(newUserInfo),
-        headers: new Headers({ "Content-type": "application/json" }),
+        headers: new Headers({ "Content-type": "application/json" })
       });
 
     if (!response.ok) {

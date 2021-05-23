@@ -15,7 +15,7 @@ describe("EnterStatus tests", () => {
     post = {
       title: "Title of sample article",
       contents: "Contents of the sample article",
-      edited: new Date("2020-06-10T14:54:40Z").toLocaleString(),
+      edited: new Date("2020-06-10T14:54:40Z").toLocaleString()
     };
 
     handler.mockReset();

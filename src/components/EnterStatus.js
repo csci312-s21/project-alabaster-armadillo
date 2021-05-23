@@ -25,7 +25,7 @@ export default function EnterStatus({ user, complete }) {
 
     let updateUserPost = {
         post: contents,
-        postTime: currentTime,
+        postTime: currentTime
       };
     
     if(user){
