@@ -6,7 +6,6 @@ https://github.com/vercel/next.js/blob/2e8068fcbea427bf50dd464c5565e676e4685ff0/
 */
 import path from "path";
 import spawn from "cross-spawn";
-
 import http from "http";
 import server from "next/dist/server/next";
 import fetch from "node-fetch";
@@ -40,14 +39,14 @@ export function runNextCommand(argv, options = {}) {
 
     let stderrOutput = "";
     if (options.stderr) {
-      instance.stderr.on("data", function (chunk) {
+      instance.stderr.on("data", (chunk) => {
         stderrOutput += chunk;
       });
     }
 
     let stdoutOutput = "";
     if (options.stdout) {
-      instance.stdout.on("data", function (chunk) {
+      instance.stdout.on("data", (chunk) => {
         stdoutOutput += chunk;
       });
     }
@@ -81,23 +80,6 @@ export function nextBuild(dir, args = [], opts = {}) {
   return runNextCommand(["build", dir, ...args], opts);
 }
 
-export async function startApp(app) {
-  await app.prepare();
-  const handler = app.getRequestHandler();
-  const server = http.createServer(handler);
-  server.__app = app;
-
-  await promiseCall(server, "listen");
-  return server;
-}
-
-export async function stopApp(server) {
-  if (server.__app) {
-    await server.__app.close();
-  }
-  await promiseCall(server, "close");
-}
-
 export function promiseCall(obj, method, ...args) {
   return new Promise((resolve, reject) => {
     const newArgs = [
@@ -111,6 +93,25 @@ export function promiseCall(obj, method, ...args) {
     obj[method](...newArgs);
   });
 }
+
+export async function startApp(app) {
+  await app.prepare();
+  const handler = app.getRequestHandler();
+  const server1 = http.createServer(handler);
+  server1.__app = app;
+
+  await promiseCall(server1, "listen");
+  return server1;
+}
+
+export async function stopApp(server) {
+  if (server.__app) {
+    await server.__app.close();
+  }
+  await promiseCall(server, "close");
+}
+
+
 
 export function fetchViaHTTP(appPort, pathname, query, opts) {
   const url = `http://localhost:${appPort}${pathname}${

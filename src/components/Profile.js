@@ -3,46 +3,42 @@ This component appears for users who have logged on to the Scoop for the first t
 */
 import { useState } from "react";
 import { useSession } from "next-auth/client";
-import TextField from '@material-ui/core/TextField';
+import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
 import styles from "../styles/Profile.module.css";
 import Box from "@material-ui/core/Box";
+import Login from "../components/Login";
 
-export default function Profile({ user, complete }) {
+export default function Profile({ changeMode }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [session] = useSession();
 
-  const saveButton = async() => {
-     let newUserInfo= {
-       user_id: session.id,
+  const saveButton = async () => {
+     const newUserInfo = {
+       user_id: session.user.id,
        firstName: firstName,
        lastName: lastName,
        post: "",
        postTime: "",
        postLikes: "",
-       postReports: ""
+       postReports: "",
+       image: ""
      }
-
-    console.log(session);
-
-    newUserInfo = { ...user, ...newUserInfo };
-    
     const response = await fetch(
-      `/api/posts/${user.user_id}`,
+      `/api/posts`,
       {
-        method: "PUT",
+        method: "POST",
         body: JSON.stringify(newUserInfo),
         headers: new Headers({ "Content-type": "application/json" }),
       });
 
-    console.log(newUserInfo);
-
     if (!response.ok) {
       throw new Error(response.statusText);
     }
-    complete();
+    const newUser = await response.json();
+    changeMode(newUser);
   }
 
   const StyledButton = withStyles({
@@ -70,11 +66,11 @@ export default function Profile({ user, complete }) {
         <TextField id="outlined-basic" label="Last" variant="outlined" color="secondary" value= {lastName} onChange={(evt) => setLastName(evt.target.value)} />
       </Box>
       </form>
-      <p></p>
+      <p />
       <Box display="flex" justifyContent="space-evenly">
         <StyledButton className = {styles.button} onClick={() => saveButton()}
           type="button" variant="contained" disabled={(firstName==="" || lastName ==="")} >Save</StyledButton>
-        <StyledButton className = {styles.button}  variant="contained" onClick={() => complete()} type="button">Cancel</StyledButton>
+        <Login> </Login>
       </Box>
       </div>
    );

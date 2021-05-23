@@ -43,13 +43,6 @@ export async function getUser(id) {
   return rows || null;
 }
 
-export async function getUserFromEmail(email) {
-   const [rows] = await knex("users").select();
-   //.where({email:email})
-   return rows || null;
-}
-
-
 /**
  * Remove the user associated with the provided id from the data storage
  *
@@ -68,7 +61,7 @@ export async function deleteUser(id) {
  * @returns a Boolean indicating success
  */
 export async function updateUser(user) {
-  if (user.id > 0) {
+  if (user.user_id > 0) {
     const rows = await knex("panthers").update(user).where({user_id:user.user_id});
     if (rows !== -1) {
       return true;

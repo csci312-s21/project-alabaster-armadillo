@@ -22,11 +22,11 @@ export default function Post({ user }) {
     return (
 
     <div className = {styles.post} >
-      <h2> { user.firstName } </h2>
+      <h2> { user.firstName } { user.lastName } </h2>
       <p> { user.post }</p>
       
       <p className = {styles.timestamp}>{user.postTime}</p>
-
+      
       <p> {counter}</p>
 
       <span className = {styles.like} onClick={() => setLikes(likes)} type="button">♥</span>
@@ -36,7 +36,7 @@ export default function Post({ user }) {
 }
 
 Post.propTypes = {
-  post: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 //<small> { counter }</small>

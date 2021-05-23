@@ -6,17 +6,19 @@
     "postTime": "",
     "postLikes": "",
     "postReports": "",
-    "image": "image"
+    "image": "image",
+    "user_id": 2
   },
 
   {
     "firstName": "Gretchen",
     "lastName": "Doyle",
     "post": "Wooohooo coding!",
-    "postTime": "",
-    "postLikes": "",
+    "postTime":"",
+    "postLikes": "", 
     "postReports": "",
-    "image": "image"
+    "image": "image",
+    "user_id": 4
   },
 
   {
@@ -26,6 +28,7 @@
     "postTime":"",
     "postLikes": "", 
     "postReports": "",
-    "image": "image"
+    "image": "image",
+    "user_id": 1
   }
 ]

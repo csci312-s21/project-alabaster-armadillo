@@ -1,21 +1,16 @@
 import Head from "next/head";
 import StatusBoard from "../../src/components/StatusBoard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Login from "../components/Login";
 import Profile from "../components/Profile";
 import styles from "../styles/Home.module.css";
-import {useSession} from "next-auth/client";
+import { useSession } from "next-auth/client";
 import NavBar from "../components/NavBar";
-
 
 export default function Home() {
   const [session] = useSession();
-  const date = new Date();
-  const currentTime = date.toISOString();
+  const [posts, updatePosts] = useState();
 
-  const [posts, updatePosts] = useState(
-    [{key: "James", user:"James", contents:"This is a post.", timestamp:currentTime.toLocaleString("en-US", {timeZone: "UTC"}), likes:["Kaylen", "Yaqi", "Gretchen"],tags:[{value:"ross", name:"Ross"},{value:"atwater", name:"Atwater"}]}]
-  );
   const [mode, setMode] = useState("login");
   const [currentUser, setUser] = useState("");
 
@@ -25,6 +20,21 @@ export default function Home() {
   let logo;
   let profile;
 
+  useEffect(() => {
+    const getData = async () => {
+      if (session) {
+        const response = await fetch(`/api/posts/${session.user.id}`);
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        const user = await response.json();
+        setUser(user);
+      }
+    };
+    getData();
+
+  }, [mode]);
+
   //Fetch users from the server
   const getUsers = async () => {
     const response = await fetch(`/api/posts`);
@@ -32,44 +42,64 @@ export default function Home() {
       throw new Error(response.statusText);
     }
     const userData = await response.json();
-    updatePosts(userData);
+    updatePosts(userData); //update the post data
   };
 
+  //getUsers every time there is a change in posts
+  useEffect(() => {
+    getUsers()
+  }, []);
 
- const complete = async (newPost) => {
+  const changeMode = async (newUser) => {
 
-  if(newPost){
+    const response = await fetch(`/api/posts/${session.user.id}`);
+    
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
 
-    const response = await fetch(
-      `/api/posts/${currentUser.user_id}`,
-      {
-        method: "POST",
-        body: JSON.stringify(newPost),
-        headers: new Headers({ "Content-type": "application/json" }),
-      });
+    const user = await response.json();
+    
+    setUser(user);
+
+    if (newUser) {
       setMode("view");
+    }
+  }
 
-    //Set timer for post to expire after certain # of seconds --> 4000 = 4 secs 
-    setTimeout(() => {
-        const finalPosts = posts.filter(post => post !== newPost);
-        updatePosts(finalPosts);
-      }, 8000) //currently timer for posts is set at 8 seconds
-  } else {
+  const complete = async (newPost) => {
+   
+    if (newPost){
+
+      /*const placePost = await fetch(
+        `/api/posts/${session.user.id}`,
+        {
+          method: "PUT",
+          body: JSON.stringify(newPost),
+          headers: new Headers({ "Content-type": "application/json" }),
+        });
+      
+      placePost();*/
       setMode("view");
+        
+      //Set timer for post to expire after certain # of seconds --> 4000 = 4 secs 
+      setTimeout(() => {
+          const finalPosts = posts.filter(post => post !== newPost);
+          updatePosts(finalPosts);
+        }, 8000) //currently timer for posts is set at 60 minutes //3600000 for 60 mins
+    } else {
+      setMode("view");
+    }
   }
-}
-  console.log(currentUser);
-  console.log(currentUser.firstName);
-  if(mode === "view" && !(currentUser.firstName)){
-    profile = <Profile complete = {complete} user = {currentUser} /> 
-  }
-  else if (mode === "view" && currentUser.firstName){
-    console.log(currentUser);
-    navBar = <NavBar user={currentUser.email} complete={complete}/>;
-    statusBoard = <StatusBoard posts={posts} user={currentUser}/>
-    //enterStatus = <EnterStatus user={currentUser.email} complete={complete}/>
-    //log = <Login/>
-  }else if (mode === "login"){
+
+  if (mode === "view" && !(currentUser.firstName)){
+    profile = <Profile changeMode = {changeMode} /> 
+  } else if (mode === "view" && currentUser.firstName){
+    
+    navBar = <NavBar user={currentUser} complete={complete}/>;
+    statusBoard = <StatusBoard posts={posts}/>
+    
+  } else if (mode === "login"){
     log = <Login/>
     logo = <img src="/ScoopLogo3.png" alt="Logo"/>
     if (session) {

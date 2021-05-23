@@ -69,5 +69,12 @@
   "lint-staged": {
     "*.js": "eslint --cache --fix",
     "*.{js,css,md,json,jsx}": "prettier --write"
+  },
+  "eslintConfig": {
+    "rules": {
+      "no-shadow": "off",
+      "no-use-before-define": "off",
+      "no-undef": "off"
+    }
   }
 }
