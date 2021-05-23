@@ -1,32 +1,44 @@
 .post {
-  margin-left: 40px;
-  margin-right: 70px;
   width: 32rem;
-  background:rgb(233, 233, 233);
-  border: 2px solid rgb(249, 186, 191);
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 50px;
   padding-right: 50px;
 }
-
-.timestamp {
-  font-size: 75%;
+.userName{
+  font-size: 20px;
+  font-family: Courier 'Courier New', Courier, monospace;
+  padding-top: 15px;
+  padding-bottom: 5px;
+  padding-left: 30px;
+  
+}
+.postText{
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 30px;
+  padding-right: 10px;
+  font-family: Courier 'Courier New', Courier, monospace;
+  margin-top: -5px;
+  margin-bottom: 0px;
 }
 
 .like{
   font-size: 200%;
-}
-
-.tags{
-  background:rgb(107, 129, 113);
-  border: 2px solid rgb(97, 133, 107);
-  color:rgb(230, 243, 234);
   padding-top: 5px;
   padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  text-align:center;
-  margin-left: 10px;
-  
+  padding-left: 15px;
 }
+.counter{
+  font-size: 225%;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-top: 0px;
+  margin-bottom: -25px;
+  text-align: right;
+  color: rgb(143, 143, 143);
+}
+
+
