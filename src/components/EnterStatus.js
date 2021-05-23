@@ -23,14 +23,16 @@ export default function EnterStatus({ user, complete }) {
     const date = new Date();
     const currentTime = date.toLocaleString("en-US", { timeZone: "America/New_York" });
 
-    const new_post = {
-        key: user,
-        user: user,
-        contents: contents,
-        timestamp: currentTime,
+    let updateUserPost = {
+        post: contents,
+        postTime: currentTime
       };
+    
+    if(user){
+      updateUserPost = {...user, ...updateUserPost};
+    }
       
-    complete(new_post);
+    complete(updateUserPost);
   };
 
   const handlePost = (h) => {
@@ -66,6 +68,7 @@ export default function EnterStatus({ user, complete }) {
               style = {{width: 500}}
               rows={1}
               maxLength="60"  
+              color= "secondary"
               id="contents"
               value={contents}
               placeholder="Enter the Scoop (in less than 60 characters)!"

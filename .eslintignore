@@ -1,2 +1,6 @@
 # Production
 /build
+
+.next
+
+next-test-utils.js

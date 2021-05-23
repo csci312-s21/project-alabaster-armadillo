@@ -1,19 +1,15 @@
 import Head from "next/head";
 import StatusBoard from "../../src/components/StatusBoard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Login from "../components/Login";
+import Profile from "../components/Profile";
 import styles from "../styles/Home.module.css";
-import {useSession} from "next-auth/client";
+import { useSession } from "next-auth/client";
 import NavBar from "../components/NavBar";
 
 export default function Home() {
   const [session] = useSession();
-  const date = new Date();
-  const currentTime = date.toISOString();
-
-  const [posts, updatePosts] = useState(
-    [{key: "James", user:"James", contents:"The brown fox jumped over the road. Seven six five four three two one.", timestamp:currentTime.toLocaleString("en-US", {timeZone: "UTC"}), likes:["Kaylen", "Yaqi", "Gretchen"],tags:[{value:"ross", name:"Ross"},{value:"atwater", name:"Atwater"}]}]
-  );
+  const [posts, updatePosts] = useState();
   const [mode, setMode] = useState("login");
   const [currentUser, setUser] = useState("");
 
@@ -21,33 +17,88 @@ export default function Home() {
   let log;
   let navBar;
   let logo;
+  let profile;
 
- const complete = function com(newPost) {
+  useEffect(() => {
+    const getData = async () => {
+      if (session) {
+        const response = await fetch(`/api/posts/${session.user.id}`);
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        const user = await response.json();
+        setUser(user);
+      }
+    };
+    getData();
 
-  if(newPost){
-    //Create deep copy of collection
-      let copyPosts = JSON.parse(JSON.stringify(posts));
-      //Add post to copy of posts data
-      copyPosts = [...copyPosts, newPost];
-      updatePosts(copyPosts);
+  }, [mode]);
+
+  //Fetch users from the server
+  const getUsers = async () => {
+    const response = await fetch(`/api/posts`);
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    const userData = await response.json();
+    updatePosts(userData); //update the post data
+  };
+
+  //getUsers every time there is a change in posts
+  useEffect(() => {
+    getUsers()
+  }, []);
+
+  const changeMode = async (newUser) => {
+
+    const response = await fetch(`/api/posts/${session.user.id}`);
+    
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    const user = await response.json();
+    
+    setUser(user);
+
+    if (newUser) {
       setMode("view");
-
-    //Set timer for post to expire after certain # of seconds --> 4000 = 4 secs 
-    setTimeout(() => {
-        const finalPosts = posts.filter(post => post !== newPost);
-        updatePosts(finalPosts);
-      }, 8000) //currently timer for posts is set at 4 seconds
-  } else {
-      setMode("view");
+    }
   }
-}
 
-  if (mode === "view"){
-    navBar = <NavBar user={currentUser.email} complete={complete}/>;
+  const complete = async (newPost) => {
+   
+    if (newPost){
+
+      /*const placePost = await fetch(
+        `/api/posts/${session.user.id}`,
+        {
+          method: "PUT",
+          body: JSON.stringify(newPost),
+          headers: new Headers({ "Content-type": "application/json" }),
+        });
+      
+      placePost();*/
+      setMode("view");
+        
+      //Set timer for post to expire after certain # of seconds --> 4000 = 4 secs 
+      setTimeout(() => {
+          const finalPosts = posts.filter(post => post !== newPost);
+          updatePosts(finalPosts);
+        }, 8000) //currently timer for posts is set at 60 minutes //3600000 for 60 mins
+    } else {
+      setMode("view");
+    }
+  }
+
+  if (mode === "view" && !(currentUser.firstName)){
+    profile = <Profile changeMode = {changeMode} /> 
+  } else if (mode === "view" && currentUser.firstName){
+    
+    navBar = <NavBar user={currentUser} complete={complete}/>;
     statusBoard = <StatusBoard posts={posts}/>
-    //enterStatus = <EnterStatus user={currentUser.email} complete={complete}/>
-    //log = <Login/>
-  }else if (mode === "login"){
+    
+  } else if (mode === "login"){
     log = <Login/>
     logo = <img src="/ScoopLogo3.png" alt="Logo"/>
     if (session) {
@@ -65,6 +116,7 @@ export default function Home() {
       <main>
         {navBar}    
         {logo}
+        {profile}
         {log}
         {statusBoard}
       </main>

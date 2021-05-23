@@ -24,31 +24,31 @@ const StyledAppBar = withStyles({
     color: "black",
     height: 280,
     padding: "0 5px",
-    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)"
   } 
 })(AppBar);
 
 const useStyles = makeStyles((theme) => ({
   grow: {
-    flexGrow: .25,
+    flexGrow: .25
   },
  
   title: {
     display: "none",
     [theme.breakpoints.up("sm")]: {
-      display: "block",
+      display: "block"
     },
   },
   sectionDesktop: {
     display: "none",
     [theme.breakpoints.up("md")]: {
-      display: "flex",
+      display: "flex"
     },
   },
   sectionMobile: {
     display: "flex",
     [theme.breakpoints.up("md")]: {
-      display: "none",
+      display: "none"
     },
   },
 }));
