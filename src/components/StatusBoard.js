@@ -13,7 +13,7 @@ export default function StatusBoard({ posts }) {
   
   return(
     <div>
-      <ul> {postLists} </ul>
+      {postLists} 
     </div>
   );
 

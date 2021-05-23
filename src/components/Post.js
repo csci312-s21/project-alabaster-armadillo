@@ -9,32 +9,81 @@ Properties within the post object: user refers to author of the post, timestamp 
 import PropTypes from "prop-types";
 import styles from "../styles/Post.module.css";
 import { useState, useEffect } from "react";
+import Box from "@material-ui/core/Box";
+
+//import Typography from '@material-ui/core/Typography';
+import React from "react";
+//import { spacing } from "@material-ui/system";
+import LikeButton from "../components/LikeButton";
+import ReportButton from "../components/ReportButton";
+
 
 export default function Post({ post }) {
-  const [likes, setLikes] = useState();
-
+  const [liked, setLike] = useState("unlike");
+  const [reported, setReport] = useState("unreported");
   const [counter, setCounter] = useState(8);
 
+  const handleClick = (action) => {
+    if(action !== liked){
+      setLike(action);
+     
+    }
+  }
+  const handleClickReport = (action) => {
+    if(action !== reported){
+      setReport(action);  
+    }   
+  }
+
+  let isReported;
+    if(reported === "reported"){
+    isReported = true;
+   
+  }
+  else{
+    isReported = false;
+  }
+
+ let isLiked;
+  if(liked === "like"){
+    isLiked = true;
+  }
+  else{
+    isLiked = false;
+  }
+
+ 
+  
   useEffect(() => {
     const timer = counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
     return () => clearInterval(timer);
   }, [counter]);
 
-
     return (
-
-    <div className = {styles.post} >
-      <h2> { post.user } </h2>
-      <p> { post.contents }</p>
+  
+      <Box
+        justifyContent="center"
+        
+        alignItems="center"
+        color="#000000"
+        bgcolor= "#FFFFFF"
+        fontFamily = "Courier New"
+        width = "600px"
+        height = "200px"
+        padding= "0 0px"
+        boxShadow= "0 3px 5px 2px rgba(255, 105, 135, .3)"
+        
+      >
       
-      <p className = {styles.timestamp}>{post.timestamp}</p>
-
-      <p> {counter}</p>
-
-      <span className = {styles.like} onClick={() => setLikes(likes)} type="button">♥</span>
-    </div>
-
-    );
+        <h3  className = {styles.userName}> { post.user } </h3>
+        <p className = {styles.postText}> { post.contents }</p>
+        <p className = {styles.counter}> {counter}</p>
+      
+        <LikeButton liked = {isLiked} handleClick = {handleClick}> </LikeButton>
+        <ReportButton reported = {isReported} handleClick = {handleClickReport}> </ReportButton>
+      </Box>
+    
+  );
 }
 
 Post.propTypes = {
@@ -42,3 +91,10 @@ Post.propTypes = {
 };
 
 //<small> { counter }</small>
+
+
+
+
+
+
+

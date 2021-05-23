@@ -12,7 +12,7 @@ export default function Home() {
   const currentTime = date.toISOString();
 
   const [posts, updatePosts] = useState(
-    [{key: "James", user:"James", contents:"This is a post.", timestamp:currentTime.toLocaleString("en-US", {timeZone: "UTC"}), likes:["Kaylen", "Yaqi", "Gretchen"],tags:[{value:"ross", name:"Ross"},{value:"atwater", name:"Atwater"}]}]
+    [{key: "James", user:"James", contents:"'alskdjf;alskdjfa;lskdjfa;lsdkfja;lsdkfja;lsdkfja;lsdkfja;sl", timestamp:currentTime.toLocaleString("en-US", {timeZone: "UTC"}), likes:["Kaylen", "Yaqi", "Gretchen"],tags:[{value:"ross", name:"Ross"},{value:"atwater", name:"Atwater"}]}]
   );
   const [mode, setMode] = useState("login");
   const [currentUser, setUser] = useState("");
@@ -62,13 +62,11 @@ export default function Home() {
         <title>The Scoop</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <main>
         {navBar}    
         {logo}
         {log}
         {statusBoard}
-        <p /> 
       </main>
       <footer>A CS 312 Project </footer>
     </div>
