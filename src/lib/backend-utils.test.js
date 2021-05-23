@@ -32,8 +32,6 @@ describe("Tests of the database utility functions", () => {
     await knex.seed.run();
   });
 
-
-
   describe("get users", () => {
     test("getUsers gets all users", async () => {
       const users = await getUsers();

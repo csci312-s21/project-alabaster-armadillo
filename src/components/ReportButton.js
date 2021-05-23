@@ -23,12 +23,12 @@ let reportView;
 //if the button has not been reported
   if(!reported){ 
     reportView = 
-     <WarningIcon className={styles.empty} type="report" id="report" onClick= {() => handleClick("reported") } > </WarningIcon>
+     <WarningIcon style={{ fontSize: 40 }} className={styles.empty} type="report" id="report" onClick= {() => handleClick("reported") } > </WarningIcon>
   
   }
   else{
     reportView =
-    <WarningIcon className={styles.filled} type="report" id="report" color = "secondary" onClick= {() => handleClick("unreported") } > </WarningIcon>
+    <WarningIcon style={{ fontSize: 40 }} className={styles.filled} type="report" id="report" color = "secondary" onClick= {() => handleClick("unreported") } > </WarningIcon>
   }
 
 return( 

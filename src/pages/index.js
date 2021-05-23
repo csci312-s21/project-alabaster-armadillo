@@ -12,7 +12,7 @@ export default function Home() {
   const currentTime = date.toISOString();
 
   const [posts, updatePosts] = useState(
-    [{key: "James", user:"James", contents:"'alskdjf;alskdjfa;lskdjfa;lsdkfja;lsdkfja;lsdkfja;lsdkfja;sl", timestamp:currentTime.toLocaleString("en-US", {timeZone: "UTC"}), likes:["Kaylen", "Yaqi", "Gretchen"],tags:[{value:"ross", name:"Ross"},{value:"atwater", name:"Atwater"}]}]
+    [{key: "James", user:"James", contents:"The brown fox jumped over the road. Seven six five four three two one.", timestamp:currentTime.toLocaleString("en-US", {timeZone: "UTC"}), likes:["Kaylen", "Yaqi", "Gretchen"],tags:[{value:"ross", name:"Ross"},{value:"atwater", name:"Atwater"}]}]
   );
   const [mode, setMode] = useState("login");
   const [currentUser, setUser] = useState("");

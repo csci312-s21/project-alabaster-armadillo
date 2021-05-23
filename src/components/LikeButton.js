@@ -22,13 +22,13 @@ let likeView;
 
 //if the button has not been liked
   if(! liked){ 
-    likeView = <>
-     <FavoriteBorderOutlinedIcon className={styles.empty} type="like" id="like" onClick= {() => handleClick("like") }> </FavoriteBorderOutlinedIcon>
-  </>
+    likeView = 
+     <FavoriteBorderOutlinedIcon style={{ fontSize: 40 }} className={styles.empty} type="like" id="like" onClick= {() => handleClick("like") }> </FavoriteBorderOutlinedIcon>
+  
   }
   else{
     likeView =
-    <FavoriteIcon className={styles.filled} type="like" id="like" onClick= {() => handleClick("unlike") }>  </FavoriteIcon>
+    <FavoriteIcon style={{ fontSize: 40 }} className={styles.filled} type="like" id="like" onClick= {() => handleClick("unlike") }>  </FavoriteIcon>
   }
 
 return( 

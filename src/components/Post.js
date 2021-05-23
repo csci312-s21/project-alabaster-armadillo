@@ -10,6 +10,8 @@ import PropTypes from "prop-types";
 import styles from "../styles/Post.module.css";
 import { useState, useEffect } from "react";
 import Box from "@material-ui/core/Box";
+import Toolbar from "@material-ui/core/Toolbar";
+import Grid from "@material-ui/core/Grid";
 
 //import Typography from '@material-ui/core/Typography';
 import React from "react";
@@ -51,8 +53,6 @@ export default function Post({ post }) {
   else{
     isLiked = false;
   }
-
- 
   
   useEffect(() => {
     const timer = counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
@@ -63,24 +63,34 @@ export default function Post({ post }) {
   
       <Box
         justifyContent="center"
-        
         alignItems="center"
         color="#000000"
         bgcolor= "#FFFFFF"
         fontFamily = "Courier New"
         width = "600px"
-        height = "200px"
-        padding= "0 0px"
+        height = "180px"
+        padding= "0px 0px 0px 0px"
+        margin= "20px 20px 20px 20px"
         boxShadow= "0 3px 5px 2px rgba(255, 105, 135, .3)"
-        
+        hyphens = "manual"
+        overflow = "hidden"
       >
-      
-        <h3  className = {styles.userName}> { post.user } </h3>
+    
+        <h3 className = {styles.userName}> { post.user } </h3>
         <p className = {styles.postText}> { post.contents }</p>
-        <p className = {styles.counter}> {counter}</p>
-      
-        <LikeButton liked = {isLiked} handleClick = {handleClick}> </LikeButton>
-        <ReportButton reported = {isReported} handleClick = {handleClickReport}> </ReportButton>
+        
+        <Toolbar>
+          <Grid justify="space-between" container>
+            <Grid item>
+              <LikeButton liked = {isLiked} handleClick = {handleClick}> </LikeButton>
+              <ReportButton reported = {isReported} handleClick = {handleClickReport}> </ReportButton>
+            </Grid>
+
+            <Grid item >
+              <p className = {styles.counter}> {counter}</p>
+            </Grid>
+          </Grid>
+        </Toolbar>
       </Box>
     
   );
