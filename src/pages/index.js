@@ -10,7 +10,6 @@ import NavBar from "../components/NavBar";
 export default function Home() {
   const [session] = useSession();
   const [posts, updatePosts] = useState();
-
   const [mode, setMode] = useState("login");
   const [currentUser, setUser] = useState("");
 
@@ -114,14 +113,12 @@ export default function Home() {
         <title>The Scoop</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <main>
         {navBar}    
         {logo}
         {profile}
         {log}
         {statusBoard}
-        <p /> 
       </main>
       <footer>A CS 312 Project </footer>
     </div>
