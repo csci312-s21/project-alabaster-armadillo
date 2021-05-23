@@ -10,9 +10,8 @@ import PropTypes from "prop-types";
 import styles from "../styles/Post.module.css";
 import { useState, useEffect } from "react";
 
-export default function Post({ post }) {
+export default function Post({ user }) {
   const [likes, setLikes] = useState();
-
   const [counter, setCounter] = useState(8);
 
   useEffect(() => {
@@ -20,15 +19,14 @@ export default function Post({ post }) {
     return () => clearInterval(timer);
   }, [counter]);
 
-
     return (
 
     <div className = {styles.post} >
-      <h2> { post.user } </h2>
-      <p> { post.contents }</p>
+      <h2> { user.firstName } { user.lastName } </h2>
+      <p> { user.post }</p>
       
-      <p className = {styles.timestamp}>{post.timestamp}</p>
-
+      <p className = {styles.timestamp}>{user.postTime}</p>
+      
       <p> {counter}</p>
 
       <span className = {styles.like} onClick={() => setLikes(likes)} type="button">♥</span>
@@ -38,7 +36,7 @@ export default function Post({ post }) {
 }
 
 Post.propTypes = {
-  post: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 //<small> { counter }</small>

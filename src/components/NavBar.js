@@ -1,6 +1,6 @@
 
-import React from "react";
-import {makeStyles } from "@material-ui/core/styles";
+import React, { useState, useEffect } from "react";
+import { fade, makeStyles } from "@material-ui/core/styles";
 
 import { withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -14,7 +14,11 @@ import EnterStatus from "../../src/components/EnterStatus";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import InputBase from '@material-ui/core/InputBase';
 import Login from "../components/Login";
+import SearchBar from "./SearchBar";
+import StatusBoard from "./StatusBoard";
+
 
 const StyledAppBar = withStyles({
   root: {
@@ -51,6 +55,21 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+    marginRight: theme.spacing(0),
+    marginLeft: 0,
+    width: '30px',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(4),
+      width: 'auto',
+    },
+  },
 }));
 
 export default function NavBar({user, complete}) {
@@ -77,6 +96,12 @@ export default function NavBar({user, complete}) {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+
+  const date = new Date();
+  const currentTime = date.toISOString();
+  const [posts, updatePosts] = useState(
+    [{key: "James", user:"James", contents:"This is a post.", timestamp:currentTime.toLocaleString("en-US", {timeZone: "UTC"}), likes:["Kaylen", "Yaqi", "Gretchen"],}]
+  );
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -105,6 +130,8 @@ export default function NavBar({user, complete}) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
+
+    
   
       <MenuItem>
       <img src="/ScoopLogo_clipped.png" alt="Logo"  width="243" height="144" />
@@ -128,6 +155,27 @@ export default function NavBar({user, complete}) {
       </MenuItem>
     </Menu>
   );
+
+
+  const [searchTerm, setSearchTerm] = useState("");
+  //const [search, setSearch] = useState();
+  //load post data
+  useEffect(() => {
+    const getData = async () => {
+      const response = await fetch(
+        "/api/posts"
+      );
+
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      const postData = await response.json();
+      //const 
+      updatePosts(postData);
+    };
+    getData();
+  }, []);
+
 
   return (
     <div className={classes.grow}>
@@ -162,6 +210,14 @@ export default function NavBar({user, complete}) {
               <MoreIcon />
             </IconButton>
           </div>
+          <div className={classes.search}>
+            <SearchBar
+              placeholder="Search…"
+              searchTerm={searchTerm}
+              setTerm={setSearchTerm}
+            />
+          </div>
+            
           <Box margin = {5}>
           <Login> </Login>
           </Box>
@@ -170,6 +226,7 @@ export default function NavBar({user, complete}) {
       </StyledAppBar>
       {renderMobileMenu}
       {renderMenu}
+      <StatusBoard searchTerm={searchTerm} posts={posts}/>
     </div>
   );
 }

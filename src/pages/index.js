@@ -11,12 +11,10 @@ export default function Home() {
   const date = new Date();
   const currentTime = date.toISOString();
 
-  const [posts, updatePosts] = useState(
-    [{key: "James", user:"James", contents:"This is a post.", timestamp:currentTime.toLocaleString("en-US", {timeZone: "UTC"}), likes:["Kaylen", "Yaqi", "Gretchen"],tags:[{value:"ross", name:"Ross"},{value:"atwater", name:"Atwater"}]}]
-  );
+  const [posts, updatePosts] = useState([]);
   const [mode, setMode] = useState("login");
   const [currentUser, setUser] = useState("");
-
+  
   let statusBoard;
   let log;
   let navBar;
@@ -44,7 +42,7 @@ export default function Home() {
 
   if (mode === "view"){
     navBar = <NavBar user={currentUser.email} complete={complete}/>;
-    statusBoard = <StatusBoard posts={posts}/>
+    // statusBoard = <StatusBoard searchTerm={searchTerm} posts={posts}/>
     //enterStatus = <EnterStatus user={currentUser.email} complete={complete}/>
     //log = <Login/>
   }else if (mode === "login"){
@@ -67,7 +65,7 @@ export default function Home() {
         {navBar}    
         {logo}
         {log}
-        {statusBoard}
+        
         <p /> 
       </main>
       <footer>A CS 312 Project </footer>
@@ -75,3 +73,5 @@ export default function Home() {
   );
 
 }
+
+//{statusBoard}
