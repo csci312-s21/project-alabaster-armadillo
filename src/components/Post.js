@@ -17,20 +17,45 @@ import React from "react";
 //import { spacing } from "@material-ui/system";
 import LikeButton from "../components/LikeButton";
 import ReportButton from "../components/ReportButton";
-export default function Post({ user }) {
+export default function Post({ user, currentUser, session }) {
+
   const [liked, setLike] = useState("unlike");
   const [reported, setReport] = useState("unreported");
   const [counter, setCounter] = useState(8);
-  const handleClick = (action) => {
-    if(action !== liked){
-      setLike(action);
+
+  //console.log(currentUser);
+  
+  
+  const handleClick = async (action) => {
+    setLike(action);
+    let likeUserArray = JSON.parse(user.postLikes);
+    let updateUserPost;
+
+    if(action === "like"){
+     
+      likeUserArray.push(currentUser.firstName + "_" + currentUser.lastName);
     }
+    else{ //if someone unlikes a post, remove their name from the array)
+      setLike("unlike");
+      likeUserArray = likeUserArray.filter(likeUser => likeUser !== (currentUser.firstName + "_" + currentUser.lastName));
+    }
+    likeUserArray= JSON.stringify(likeUserArray);
+    updateUserPost = {...user, postLikes: likeUserArray };
+    const updateLikes = await fetch(
+      `/api/posts/${session.user.id}`,
+      {
+        method: "PUT",
+        body: JSON.stringify(updateUserPost),
+        headers: new Headers({ "Content-type": "application/json" }),
+      });
   }
-  const handleClickReport = (action) => {
+
+   const handleClickReport = (action) => {
     if(action !== reported){
       setReport(action);
     }
   }
+
   let isReported;
     if(reported === "reported"){
     isReported = true;
@@ -38,13 +63,15 @@ export default function Post({ user }) {
   else{
     isReported = false;
   }
- let isLiked;
-  if(liked === "like"){
+
+  let isLiked;
+    if(liked === "like"){
     isLiked = true;
   }
   else{
     isLiked = false;
   }
+
   useEffect(() => {
     const timer = counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
     return () => clearInterval(timer);
@@ -61,16 +88,17 @@ export default function Post({ user }) {
         padding= "0px 0px 0px 0px"
         margin= "20px 20px 20px 20px"
         boxShadow= "0 3px 5px 2px rgba(255, 105, 135, .3)"
-        hyphens = "manual"
-        overflow = "hidden"
-      >
+        hyphens = "manual" >
+
+
+
         <h3 className = {styles.userName}> {user.firstName} { user.lastName} </h3>
         <p className = {styles.postText}> { user.post }</p>
         <p className = {styles.postText}> { user.postTime }</p>
         <Toolbar>
           <Grid justify="space-between" container>
             <Grid item>
-              <LikeButton liked = {isLiked} handleClick = {handleClick}> </LikeButton>
+              <LikeButton selfPost = {currentUser.firstName === user.firstName} liked = {isLiked} handleClick = {handleClick}> </LikeButton>
               <ReportButton reported = {isReported} handleClick = {handleClickReport}> </ReportButton>
             </Grid>
             <Grid item >

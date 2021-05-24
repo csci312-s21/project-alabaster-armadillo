@@ -22,7 +22,7 @@ export default function Profile({ changeMode }) {
        lastName: lastName,
        post: "",
        postTime: "",
-       postLikes: "",
+       postLikes: "[]",
        postReports: "",
        image: ""
      }

@@ -70,7 +70,7 @@ export default function Home() {
    
     if (newPost){
 
-      /*const placePost = await fetch(
+      const placePost = await fetch(
         `/api/posts/${session.user.id}`,
         {
           method: "PUT",
@@ -78,7 +78,7 @@ export default function Home() {
           headers: new Headers({ "Content-type": "application/json" }),
         });
       
-      placePost();*/
+      
       setMode("view");
         
       //Set timer for post to expire after certain # of seconds --> 4000 = 4 secs 
@@ -96,7 +96,7 @@ export default function Home() {
   } else if (mode === "view" && currentUser.firstName){
     
     navBar = <NavBar user={currentUser} complete={complete}/>;
-    statusBoard = <StatusBoard posts={posts}/>
+    statusBoard = <StatusBoard session={session} currentUser={currentUser} posts={posts}/>
     
   } else if (mode === "login"){
     log = <Login/>
