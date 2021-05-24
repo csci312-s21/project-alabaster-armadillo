@@ -17,11 +17,13 @@ import React from "react";
 //import { spacing } from "@material-ui/system";
 import LikeButton from "../components/LikeButton";
 import ReportButton from "../components/ReportButton";
+//import EnterStatus from "../components/EnterStatus";
+
 export default function Post({ user, currentUser, session }) {
 
   const [liked, setLike] = useState("unlike");
   const [reported, setReport] = useState("unreported");
-  const [counter, setCounter] = useState(8);
+  const [counter, setCounter] = useState(0);
 
   //console.log(currentUser);
 
