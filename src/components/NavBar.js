@@ -5,15 +5,11 @@ import {makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Badge from "@material-ui/core/Badge";
+
 
 
 import Box from "@material-ui/core/Box"
 import EnterStatus from "../../src/components/EnterStatus";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import MoreIcon from "@material-ui/icons/MoreVert";
-
 import Login from "../components/Login";
 
 const StyledAppBar = withStyles({
@@ -23,6 +19,7 @@ const StyledAppBar = withStyles({
     border: 0,
     color: "black",
     height: 280,
+    width: "600px",
     padding: "0 5px",
     boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)"
   } 
@@ -61,28 +58,8 @@ export default function NavBar({user, complete, updateTime}) {
       <StyledAppBar position="sticky">
         <Toolbar>
         <img src="/ScoopLogo_clipped.png" alt="Logo"  width="243" height="144" align = "left"/>
-          <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary" />
-            </IconButton>
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-haspopup="true"
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-          </div>
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              aria-haspopup="true"
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </div>
+         
+        
           <Box margin = {5}>
           <Login> </Login>
           </Box>

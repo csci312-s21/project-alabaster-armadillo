@@ -23,7 +23,7 @@ export default function Home() {
   useEffect(() => {
     const getData = async () => {
       if (session) {
-        
+
         try {
           const response = await fetch(`/api/posts/${session.user.id}`);
           const user = await response.json();
@@ -32,7 +32,7 @@ export default function Home() {
         } catch (error) {
           console.log(error);
         }
-        
+
       }
     };
     getData();
@@ -57,13 +57,13 @@ export default function Home() {
   const changeMode = async (newUser) => {
 
     const response = await fetch(`/api/posts/${session.user.id}`);
-    
+
     if (!response.ok) {
       throw new Error(response.statusText);
     }
 
     const user = await response.json();
-    
+
     setUser(user);
     setPost(user.post);
 
@@ -73,9 +73,9 @@ export default function Home() {
   }
 
   const complete = async (newPost) => {
-   
+
     if (newPost) {
-    
+
       await fetch(
         `/api/posts/${session.user.id}`,
         {
@@ -83,7 +83,7 @@ export default function Home() {
           body: JSON.stringify(newPost),
           headers: new Headers({ "Content-type": "application/json" })
         });
-      
+
       setMode("view");
       setPost(newPost);
 
@@ -109,22 +109,22 @@ export default function Home() {
             headers: new Headers({ "Content-type": "application/json" })
           });
         }, 3600000);
-      
+
         return () => clearTimeout(timer);
       } catch (error) {
         console.log(error);
       }
-      
+
     }, [currentPost]);
-  
+
 
   if (mode === "view" && !(currentUser.firstName)){
-    profile = <Profile changeMode = {changeMode} /> 
+    profile = <Profile changeMode = {changeMode} />
   } else if (mode === "view" && currentUser.firstName){
-    
-    navBar = <NavBar user={currentUser} complete={complete} updateTime={updateTime}/>;
-    statusBoard = <StatusBoard posts={posts} currentPost={currentPost} updateTime={updateTime}/>
-    
+
+    navBar = <NavBar user={currentUser} complete={complete}/>;
+    statusBoard = <StatusBoard session={session} currentUser={currentUser} posts={posts}/>
+
   } else if (mode === "login"){
     log = <Login/>
     logo = <img src="/ScoopLogo3.png" alt="Logo"/>
@@ -133,7 +133,7 @@ export default function Home() {
       setMode("view");
     }
   }
-  
+
   return (
     <div className={styles.container}>
       <Head>
@@ -141,7 +141,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        {navBar}    
+        {navBar}
         {logo}
         {profile}
         {log}
