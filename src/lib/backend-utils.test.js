@@ -1,16 +1,3 @@
-// import fetchMock from "fetch-mock-jest";
-// import { act } from "react-dom/test-utils";
-/*import { render } from "@testing-library/react";
-
-describe("smoke test", () => {
-  test("Smoke test", async () => {
-    render(<h2> hey </h2>);
-    // await act(async () => {
-    //   await fetchMock.flush(true);
-    // });
-  });
-});*/
-
 
 import sampleUsers from "../../data/test-data.json";
 
@@ -78,16 +65,6 @@ describe("Tests of the database utility functions", () => {
   });
 
   describe("update user", () => {
-    // const sample = {
-    //   "firstName": "Yaqi",
-    //   "lastName": "Huang",
-    //   "post": "Mark your calendars for Mischords May 20!",
-    //   "postTime": "59",
-    //   "postLikes" : "",
-    //   "postReports": "",
-    //   "image": "image",
-    //   "user_id": 10
-    // };
 
     test("updateUser updates the user", async () => {
       const sample = { ...sampleUsers[0], post: "hope this works!" };

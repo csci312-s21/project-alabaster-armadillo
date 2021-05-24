@@ -21,20 +21,6 @@ describe("EnterStatus tests", () => {
     handler.mockReset();
   });
 
-  // test("EnterStatus returns new post", () => {
-  //   const { container } = render(<EnterStatus complete={handler} user={post}/>);
-  //   const contentsInput = container.querySelector("textarea");
-  //   const postButton = screen.getByRole("button", { name: "Post" });
-  //   fireEvent.change(contentsInput, { target: { value: post.post } });
-  //   fireEvent.click(postButton);
-
-  //   expect(handler).toHaveBeenCalled();
-
-  //   const newPost = handler.mock.calls[0][0]; // value the handler was called with
-
-  //   expect(newPost.post).toEqual(post.post);
-  // });
-
   test("Post button is disabled without contents", () => {
     const { container } = render(<EnterStatus complete={handler} />);
 
@@ -61,20 +47,4 @@ describe("EnterStatus tests", () => {
     expect(handler).toHaveBeenCalledWith();
   });
 
-  /*
-  test("New post has current date", () => {
-    const referenceDate = new Date();
-    const { container } = render(<EnterStatus complete={handler} />);
-    const contentsInput = container.querySelector("textarea");
-    const postButton = screen.getByRole("button", { name: "Post" });
-
-    fireEvent.change(contentsInput, { target: { value: post.contents } });
-
-    fireEvent.click(postButton);
-
-    const newPost = handler.mock.calls[0][0]; // value the handler was called with
-    const dateDiff = new Date(newPost.timestamp) - referenceDate;
-    expect(dateDiff).toBeGreaterThanOrEqual(0);
-  });
-  */
 });

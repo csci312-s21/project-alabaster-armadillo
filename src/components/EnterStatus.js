@@ -20,8 +20,6 @@ export default function EnterStatus({ user, complete  }) {
 
   //Post button
   const postButton = () => {
-    //const date = new Date();
-   // const currentTime = date.toLocaleString("en-US", { timeZone: "America/New_York" });
 
     let updateUserPost = {
         post: contents,

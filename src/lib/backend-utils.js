@@ -95,16 +95,3 @@ export async function addUser(user) {
 
   return newUser[0];
 }
-
-/**
- * Get a list of the sections 
- * 
- * @returns an Array of the sections
- */
-
-/**
- * Fetch the ids and titles for articles in a particular section
- * 
- * @param {string} section 
- * @returns an array of objects with title and article id
- */
