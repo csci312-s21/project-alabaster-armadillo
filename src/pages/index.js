@@ -12,6 +12,7 @@ export default function Home() {
   const [posts, updatePosts] = useState();
   const [mode, setMode] = useState("login");
   const [currentUser, setUser] = useState("");
+  const [currentPost, setPost] = useState("")
 
   let statusBoard;
   let log;
@@ -22,12 +23,16 @@ export default function Home() {
   useEffect(() => {
     const getData = async () => {
       if (session) {
-        const response = await fetch(`/api/posts/${session.user.id}`);
-        if (!response.ok) {
-          throw new Error(response.statusText);
+        
+        try {
+          const response = await fetch(`/api/posts/${session.user.id}`);
+          const user = await response.json();
+          setUser(user);
+          setPost(user.post);
+        } catch (error) {
+          console.log(error);
         }
-        const user = await response.json();
-        setUser(user);
+        
       }
     };
     getData();
@@ -47,7 +52,7 @@ export default function Home() {
   //getUsers every time there is a change in posts
   useEffect(() => {
     getUsers()
-  }, []);
+  }, [posts]);
 
   const changeMode = async (newUser) => {
 
@@ -60,6 +65,7 @@ export default function Home() {
     const user = await response.json();
     
     setUser(user);
+    setPost(user.post);
 
     if (newUser) {
       setMode("view");
@@ -68,34 +74,56 @@ export default function Home() {
 
   const complete = async (newPost) => {
    
-    if (newPost){
-
+    if (newPost) {
+    
       await fetch(
         `/api/posts/${session.user.id}`,
         {
           method: "PUT",
           body: JSON.stringify(newPost),
-          headers: new Headers({ "Content-type": "application/json" }),
+          headers: new Headers({ "Content-type": "application/json" })
         });
-
+      
       setMode("view");
-        
-      //Set timer for post to expire after certain # of seconds --> 4000 = 4 secs 
-      setTimeout(() => {
-          const finalPosts = posts.filter(post => post !== newPost);
-          updatePosts(finalPosts);
-        }, 8000) //currently timer for posts is set at 60 minutes //3600000 for 60 mins
+      setPost(newPost);
+
     } else {
       setMode("view");
     }
   }
 
+  const updateTime = async () => {
+    return true;
+  }
+
+    useEffect(() => {
+      try {
+        const timer = setTimeout(async() => {
+         const deletedPost = {... currentUser, post: "", postTime: 0, postLikes: "", postReports: ""}
+
+          await fetch(
+          `/api/posts/${currentUser.user_id}`,
+          {
+            method: "PUT",
+            body: JSON.stringify(deletedPost),
+            headers: new Headers({ "Content-type": "application/json" })
+          });
+        }, 3600000);
+      
+        return () => clearTimeout(timer);
+      } catch (error) {
+        console.log(error);
+      }
+      
+    }, [currentPost]);
+  
+
   if (mode === "view" && !(currentUser.firstName)){
     profile = <Profile changeMode = {changeMode} /> 
   } else if (mode === "view" && currentUser.firstName){
     
-    navBar = <NavBar user={currentUser} complete={complete}/>;
-    statusBoard = <StatusBoard posts={posts}/>
+    navBar = <NavBar user={currentUser} complete={complete} updateTime={updateTime}/>;
+    statusBoard = <StatusBoard posts={posts} currentPost={currentPost} updateTime={updateTime}/>
     
   } else if (mode === "login"){
     log = <Login/>
@@ -105,7 +133,7 @@ export default function Home() {
       setMode("view");
     }
   }
-//<AppBar position="sticky" color="transparent" children={enterStatus}></AppBar>
+  
   return (
     <div className={styles.container}>
       <Head>

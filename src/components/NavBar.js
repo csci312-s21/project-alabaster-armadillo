@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NavBar({user, complete}) {
+export default function NavBar({user, complete, updateTime}) {
   const classes = useStyles();
 
   return (
@@ -87,7 +87,7 @@ export default function NavBar({user, complete}) {
           <Login> </Login>
           </Box>
         </Toolbar>
-        <EnterStatus user={user} complete={complete}/>
+        <EnterStatus user={user} complete={complete} updateTime={updateTime}/>
       </StyledAppBar>
     
     </div>

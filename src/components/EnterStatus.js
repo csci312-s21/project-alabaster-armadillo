@@ -15,20 +15,20 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Box from "@material-ui/core/Box";
 
-export default function EnterStatus({ user, complete }) {
+export default function EnterStatus({ user, complete  }) {
   const [contents, setContents] = useState("");
 
   //Post button
   const postButton = () => {
-    const date = new Date();
-    const currentTime = date.toLocaleString("en-US", { timeZone: "America/New_York" });
+    //const date = new Date();
+   // const currentTime = date.toLocaleString("en-US", { timeZone: "America/New_York" });
 
     let updateUserPost = {
         post: contents,
-        postTime: currentTime
+        postTime: 0
       };
     
-    if(user){
+    if (user) {
       updateUserPost = {...user, ...updateUserPost};
     }
       
@@ -46,14 +46,15 @@ export default function EnterStatus({ user, complete }) {
   };
 
   const handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+    }
     if (contents.length > 61) {
       if (e.keyCode !== 8) { // if the event is not backspace, disable typing
         e.preventDefault();
       }
     }
   };
-
-  
 
   return (
       <div>

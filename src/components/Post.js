@@ -17,10 +17,21 @@ import React from "react";
 //import { spacing } from "@material-ui/system";
 import LikeButton from "../components/LikeButton";
 import ReportButton from "../components/ReportButton";
-export default function Post({ user }) {
+export default function Post({ user, currentPost }) {
+
+ 
   const [liked, setLike] = useState("unlike");
   const [reported, setReport] = useState("unreported");
-  const [counter, setCounter] = useState(8);
+  const [counter, setCounter] = useState(0);
+
+  useEffect(async() => {
+
+    setCounter(0)
+
+    user = {... user, postTime: counter}
+    
+  }, [currentPost]);
+  
   const handleClick = (action) => {
     if(action !== liked){
       setLike(action);
@@ -31,6 +42,7 @@ export default function Post({ user }) {
       setReport(action);
     }
   }
+
   let isReported;
     if(reported === "reported"){
     isReported = true;
@@ -38,17 +50,21 @@ export default function Post({ user }) {
   else{
     isReported = false;
   }
- let isLiked;
-  if(liked === "like"){
+  let isLiked;
+  if (liked === "like"){
     isLiked = true;
   }
   else{
     isLiked = false;
   }
+
   useEffect(() => {
-    const timer = counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
+    
+    const timer = counter <= 3600000 && setInterval(() => setCounter(counter + 1), 1000);
     return () => clearInterval(timer);
+
   }, [counter]);
+
     return (
       <Box
         justifyContent="center"
@@ -66,7 +82,7 @@ export default function Post({ user }) {
       >
         <h3 className = {styles.userName}> {user.firstName} { user.lastName} </h3>
         <p className = {styles.postText}> { user.post }</p>
-        <p className = {styles.postText}> { user.postTime }</p>
+      
         <Toolbar>
           <Grid justify="space-between" container>
             <Grid item>

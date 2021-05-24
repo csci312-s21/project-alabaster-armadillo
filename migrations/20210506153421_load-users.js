@@ -4,7 +4,7 @@ exports.up = function (knex) {
     table.string("firstName").notNullable();
     table.string("lastName").notNullable();
     table.text("post");
-    table.string("postTime");
+    table.integer("postTime");
     table.string("postLikes");
     table.string("postReports");
     table.string("image").notNullable();

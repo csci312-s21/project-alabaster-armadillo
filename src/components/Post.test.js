@@ -9,7 +9,7 @@ const sample = {
   firstName: "Yaqi",
   lastName: "Huang",
   post: "Mark your calendars for Mischords May 20!",
-  postTime: "59",
+  postTime: 59,
   postLikes: "",
   postReports: "",
   image: "image"
@@ -36,12 +36,5 @@ describe("Post tests", () => {
     expect(getByText(samplePost.post)).toBeInTheDocument();
     expect(getByText(samplePost.post)).toBeVisible();
   });
-
-  test("timestamp is displayed", () => {
-    const { getByText } = render(<Post user={samplePost} />);
-    expect(getByText(samplePost.postTime)).toBeInTheDocument();
-    expect(getByText(samplePost.postTime)).toBeVisible();
-  });
-
 
 });

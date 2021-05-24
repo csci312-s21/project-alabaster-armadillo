@@ -21,7 +21,7 @@ export default function Profile({ changeMode }) {
        firstName: firstName,
        lastName: lastName,
        post: "",
-       postTime: "",
+       postTime: 0,
        postLikes: "",
        postReports: "",
        image: ""
@@ -70,8 +70,9 @@ export default function Profile({ changeMode }) {
       <Box display="flex" justifyContent="space-evenly">
         <StyledButton className = {styles.button} onClick={() => saveButton()}
           type="button" variant="contained" disabled={(firstName==="" || lastName ==="")} >Save</StyledButton>
-        <Login> </Login>
       </Box>
+      <p />
+      <center> <Login> </Login> </center> 
       </div>
    );
 }
