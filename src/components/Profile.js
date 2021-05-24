@@ -22,7 +22,7 @@ export default function Profile({ changeMode }) {
        lastName: lastName,
        post: "",
        postTime: 0,
-       postLikes: "[]",
+       postLikes: "",
        postReports: "",
        image: ""
      }
@@ -72,7 +72,7 @@ export default function Profile({ changeMode }) {
           type="button" variant="contained" disabled={(firstName==="" || lastName ==="")} >Save</StyledButton>
       </Box>
       <p />
-      <center> <Login> </Login> </center>
+      <center> <Login> </Login> </center> 
       </div>
    );
 }

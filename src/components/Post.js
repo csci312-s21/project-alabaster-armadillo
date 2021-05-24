@@ -17,67 +17,27 @@ import React from "react";
 //import { spacing } from "@material-ui/system";
 import LikeButton from "../components/LikeButton";
 import ReportButton from "../components/ReportButton";
-export default function Post({ user, currentUser, session }) {
+export default function Post({ user, currentPost }) {
 
+ 
   const [liked, setLike] = useState("unlike");
   const [reported, setReport] = useState("unreported");
-  const [counter, setCounter] = useState(8);
+  const [counter, setCounter] = useState(0);
 
-  //console.log(currentUser);
+  useEffect(async() => {
 
-  //const likeUserArray = JSON.parse(user.postLikes);
+    setCounter(0)
 
-   let isLiked;
-    if(liked === "like"){
-    isLiked = true;
-  }
-  else{
-    isLiked = false;
-  }
-//   const inLikeUserArray = (likeUserArray)=> {
-//     const hasLiked = likeUserArray.find((user)=>{
-//       (currentUser.firstName + "_" + currentUser.lastName)=== (user.firstName + "_" + user.lastName)
-//     })
-//     if(hasLiked){
-//       isLiked = true;
-//     }
-//     else{
-//       isLiked = false;
-//     }
-//     return isLiked;
-// }
-// let isLiked = inLikeUserArray(likeUserArray);
-// console.log("isLiked",isLiked);
-
-  const handleClick = async (action) => {
-
-    let likeUserArray = JSON.parse(user.postLikes);
-
-    let updateUserPost;
-
-    if(action === "like"){
-      setLike("like");
-      likeUserArray.push(`${currentUser.firstName  }_${  currentUser.lastName}`);
+    user = {... user, postTime: counter}
+    
+  }, [currentPost]);
+  
+  const handleClick = (action) => {
+    if(action !== liked){
+      setLike(action);
     }
-    else{ //if someone unlikes a post, remove their name from the array)
-      setLike("unlike");
-      likeUserArray = likeUserArray.filter(likeUser => likeUser !== (`${currentUser.firstName  }_${  currentUser.lastName}`));
-    }
-    likeUserArray= JSON.stringify(likeUserArray);
-    updateUserPost = {...user, postLikes: likeUserArray };
-     await fetch(
-      `/api/posts/${session.user.id}`,
-      {
-        method: "PUT",
-        body: JSON.stringify(updateUserPost),
-        headers: new Headers({ "Content-type": "application/json" }),
-      });
   }
-
-
-
-
-   const handleClickReport = (action) => {
+  const handleClickReport = (action) => {
     if(action !== reported){
       setReport(action);
     }
@@ -99,7 +59,7 @@ export default function Post({ user, currentUser, session }) {
   }
 
   useEffect(() => {
-
+    
     const timer = counter <= 3600000 && setInterval(() => setCounter(counter + 1), 1000);
     return () => clearInterval(timer);
 
@@ -117,18 +77,17 @@ export default function Post({ user, currentUser, session }) {
         padding= "0px 0px 0px 0px"
         margin= "20px 20px 20px 20px"
         boxShadow= "0 3px 5px 2px rgba(255, 105, 135, .3)"
-        hyphens = "manual" >
-
-
-
+        hyphens = "manual"
+        overflow = "hidden"
+      >
         <h3 className = {styles.userName}> {user.firstName} { user.lastName} </h3>
         <p className = {styles.postText}> { user.post }</p>
-
+      
         <Toolbar>
           <Grid justify="space-between" container>
             <Grid item>
-              <LikeButton selfPost = {false} liked = {isLiked} handleClick = {handleClick}>  </LikeButton>
-              <ReportButton reported = {isReported} handleClick = {handleClickReport} > </ReportButton>
+              <LikeButton liked = {isLiked} handleClick = {handleClick}> </LikeButton>
+              <ReportButton reported = {isReported} handleClick = {handleClickReport}> </ReportButton>
             </Grid>
             <Grid item >
               <p className = {styles.counter}> {counter}</p>
@@ -141,3 +100,9 @@ export default function Post({ user, currentUser, session }) {
 Post.propTypes = {
   user: PropTypes.object.isRequired,
 };
+
+
+
+
+
+
