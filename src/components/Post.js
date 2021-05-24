@@ -53,7 +53,7 @@ export default function Post({ user, currentUser, session }) {
 
     let likeUserArray = JSON.parse(user.postLikes);
 
-    let updateUserPost;
+    
 
     if(action === "like"){
       setLike("like");
@@ -64,7 +64,7 @@ export default function Post({ user, currentUser, session }) {
       likeUserArray = likeUserArray.filter(likeUser => likeUser !== (`${currentUser.firstName  }_${  currentUser.lastName}`));
     }
     likeUserArray= JSON.stringify(likeUserArray);
-    updateUserPost = {...user, postLikes: likeUserArray };
+     const updateUserPost = {...user, postLikes: likeUserArray };
      await fetch(
       `/api/posts/${session.user.id}`,
       {
@@ -90,14 +90,6 @@ export default function Post({ user, currentUser, session }) {
   else{
     isReported = false;
   }
-  let isLiked;
-  if (liked === "like"){
-    isLiked = true;
-  }
-  else{
-    isLiked = false;
-  }
-
   useEffect(() => {
 
     const timer = counter <= 3600000 && setInterval(() => setCounter(counter + 1), 1000);

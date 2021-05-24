@@ -92,9 +92,6 @@ export default function Home() {
     }
   }
 
-  const updateTime = async () => {
-    return true;
-  }
 
     useEffect(() => {
       try {
