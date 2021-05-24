@@ -21,7 +21,7 @@ export default function Post({ user, currentUser, session }) {
 
   const [liked, setLike] = useState("unlike");
   const [reported, setReport] = useState("unreported");
-  const [counter, setCounter] = useState(8);
+  const [counter, setCounter] = useState(0);
 
   //console.log(currentUser);
 

@@ -40,19 +40,31 @@ export default function Home() {
   }, [mode]);
 
   //Fetch users from the server
-  const getUsers = async () => {
-    const response = await fetch(`/api/posts`);
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
-    const userData = await response.json();
-    updatePosts(userData); //update the post data
-  };
+  
 
+  const getUsers = async () => {
+    //if(session){
+      const response = await fetch(`/api/posts`);
+      if (!response.ok) {
+        throw new Error(response.statusText);
+     }
+      const userData = await response.json();
+      updatePosts(userData); //update the post data
+    //}
+  };
+  
   //getUsers every time there is a change in posts
   useEffect(() => {
-    getUsers()
-  }, [posts]);
+    getUsers();
+  }, []);
+//
+  useEffect(() => {
+    if(session){
+      getUsers();
+    }
+  }, [posts])
+
+
 
   const changeMode = async (newUser) => {
 
