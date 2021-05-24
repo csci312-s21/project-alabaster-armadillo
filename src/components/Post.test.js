@@ -37,11 +37,7 @@ describe("Post tests", () => {
     expect(getByText(samplePost.post)).toBeVisible();
   });
 
-  test("timestamp is displayed", () => {
-    const { getByText } = render(<Post user={samplePost} />);
-    expect(getByText(samplePost.postTime)).toBeInTheDocument();
-    expect(getByText(samplePost.postTime)).toBeVisible();
-  });
+
 
 
 });

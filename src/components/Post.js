@@ -25,23 +25,47 @@ export default function Post({ user, currentUser, session }) {
 
   //console.log(currentUser);
   
-  
+  //const likeUserArray = JSON.parse(user.postLikes);
+
+   let isLiked;
+    if(liked === "like"){
+    isLiked = true;
+  }
+  else{
+    isLiked = false;
+  }
+//   const inLikeUserArray = (likeUserArray)=> {
+//     const hasLiked = likeUserArray.find((user)=>{
+//       (currentUser.firstName + "_" + currentUser.lastName)=== (user.firstName + "_" + user.lastName)
+//     })
+//     if(hasLiked){
+//       isLiked = true;
+//     }
+//     else{
+//       isLiked = false;
+//     }
+//     return isLiked;
+// }
+// let isLiked = inLikeUserArray(likeUserArray);
+// console.log("isLiked",isLiked);
+
   const handleClick = async (action) => {
-    setLike(action);
+    
     let likeUserArray = JSON.parse(user.postLikes);
+    
     let updateUserPost;
 
     if(action === "like"){
-     
-      likeUserArray.push(currentUser.firstName + "_" + currentUser.lastName);
+      setLike("like");
+      likeUserArray.push(`${currentUser.firstName  }_${  currentUser.lastName}`);
     }
     else{ //if someone unlikes a post, remove their name from the array)
       setLike("unlike");
-      likeUserArray = likeUserArray.filter(likeUser => likeUser !== (currentUser.firstName + "_" + currentUser.lastName));
+      likeUserArray = likeUserArray.filter(likeUser => likeUser !== (`${currentUser.firstName  }_${  currentUser.lastName}`));
     }
     likeUserArray= JSON.stringify(likeUserArray);
     updateUserPost = {...user, postLikes: likeUserArray };
-    const updateLikes = await fetch(
+     await fetch(
       `/api/posts/${session.user.id}`,
       {
         method: "PUT",
@@ -49,6 +73,9 @@ export default function Post({ user, currentUser, session }) {
         headers: new Headers({ "Content-type": "application/json" }),
       });
   }
+
+
+
 
    const handleClickReport = (action) => {
     if(action !== reported){
@@ -64,13 +91,7 @@ export default function Post({ user, currentUser, session }) {
     isReported = false;
   }
 
-  let isLiked;
-    if(liked === "like"){
-    isLiked = true;
-  }
-  else{
-    isLiked = false;
-  }
+ 
 
   useEffect(() => {
     const timer = counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
@@ -98,8 +119,8 @@ export default function Post({ user, currentUser, session }) {
         <Toolbar>
           <Grid justify="space-between" container>
             <Grid item>
-              <LikeButton selfPost = {currentUser.firstName === user.firstName} liked = {isLiked} handleClick = {handleClick}> </LikeButton>
-              <ReportButton reported = {isReported} handleClick = {handleClickReport}> </ReportButton>
+              <LikeButton selfPost = {false} liked = {isLiked} handleClick = {handleClick}>  </LikeButton>
+              <ReportButton reported = {isReported} handleClick = {handleClickReport} > </ReportButton>
             </Grid>
             <Grid item >
               <p className = {styles.counter}> {counter}</p>

@@ -70,7 +70,7 @@ export default function Home() {
    
     if (newPost){
 
-      const placePost = await fetch(
+       await fetch(
         `/api/posts/${session.user.id}`,
         {
           method: "PUT",
