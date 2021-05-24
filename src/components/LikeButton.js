@@ -16,29 +16,20 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import styles from "../styles/Like.module.css";
 
-export default function Like({ liked, handleClick, selfPost}) {
+export default function Like({ liked, handleClick }) {
 
-
-//need map for dropdown 
 let likeView;
 
 //if the button has not been liked
-  if (selfPost){
-    likeView = <>
-      
-      <FavoriteIcon style={{ fontSize: 40 }} className={styles.self} type="like" id="like" />
-      </>
-
-  }else{
-    if(! liked){ 
-      likeView = 
-      <FavoriteBorderOutlinedIcon style={{ fontSize: 40 }} className={styles.empty} type="like" id="like" onClick= {() => handleClick("like") }> </FavoriteBorderOutlinedIcon>
-    
-    }
-    else{
-      likeView =
-      <FavoriteIcon style={{ fontSize: 40 }} className={styles.filled} type="like" id="like" onClick= {() => handleClick("unlike") }>  </FavoriteIcon>
-  }}
+  if(! liked){ 
+    likeView = 
+     <FavoriteBorderOutlinedIcon style={{ fontSize: 40 }} className={styles.empty} type="like" id="like" onClick= {() => handleClick("like") }> </FavoriteBorderOutlinedIcon>
+  
+  }
+  else{
+    likeView =
+    <FavoriteIcon style={{ fontSize: 40 }} className={styles.filled} type="like" id="like" onClick= {() => handleClick("unlike") }>  </FavoriteIcon>
+  }
 
 return( 
   likeView
