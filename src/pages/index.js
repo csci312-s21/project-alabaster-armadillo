@@ -43,24 +43,25 @@ export default function Home() {
   
 
   const getUsers = async () => {
+
     if(session){
+
       const response = await fetch(`/api/posts`);
       if (!response.ok) {
         throw new Error(response.statusText);
      }
       const userData = await response.json();
       updatePosts(userData); //update the post data
-      console.log(posts);
+
+      
     }
+
   };
   
   //getUsers every time there is a change in posts
   useEffect(() => {
     getUsers();
   }, [posts]);
-
-
-
 
   const changeMode = async (newUser) => {
 

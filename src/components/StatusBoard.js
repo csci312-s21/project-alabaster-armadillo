@@ -19,8 +19,6 @@ export default function StatusBoard({posts, currentUser, session}) {
      }
     })
   }
-    
-
 
   return(
     <div>

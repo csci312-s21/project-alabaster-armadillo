@@ -25,7 +25,6 @@ export default function Post({ user, currentUser, session }) {
   const [reported, setReport] = useState("unreported");
   const [counter, setCounter] = useState(0);
 
-
    let isLiked;
     if(liked === "like"){
     isLiked = true;
