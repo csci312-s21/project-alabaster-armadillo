@@ -9,16 +9,16 @@ StatusBoard should return a list of the posts along with information on user (au
 import Post from "../components/Post";
 
 export default function StatusBoard({posts, currentUser, session}) {
-  //let postLists ="";
 
-  
-    const postLists = posts.map((post)=> {
+  let postLists;
+
+  if (posts) {
+    postLists = posts.map((post)=> {
       if(post.post){
         return <Post currentUser={currentUser} session = {session} user={post}/>;
      }
     })
-    
-
+  }
 
   return(
     <div>

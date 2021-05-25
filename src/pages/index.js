@@ -43,45 +43,49 @@ export default function Home() {
   
 
   const getUsers = async () => {
-    //if(session){
+
+    if(session){
+
       const response = await fetch(`/api/posts`);
       if (!response.ok) {
         throw new Error(response.statusText);
      }
       const userData = await response.json();
       updatePosts(userData); //update the post data
-    //}
+
+      
+    }
+
   };
   
   //getUsers every time there is a change in posts
   useEffect(() => {
     getUsers();
-  }, []);
-//
-  useEffect(() => {
-    if(session){
-      getUsers();
-    }
-  }, [posts])
-
-
+  }, [posts]);
 
   const changeMode = async (newUser) => {
 
-    const response = await fetch(`/api/posts/${session.user.id}`);
-
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
-
-    const user = await response.json();
-
-    setUser(user);
-    setPost(user.post);
-
     if (newUser) {
-      setMode("view");
+
+      const response = await fetch(`/api/posts/${session.user.id}`);
+
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+
+      const user = await response.json();
+
+      setUser(user);
+      setPost(user.post);
+      //updatePosts(user);
+
+      if (newUser) {
+        setMode("view");
+      }
+
     }
+
+    
   }
 
   const complete = async (newPost) => {
@@ -104,7 +108,6 @@ export default function Home() {
     }
   }
 
-
     useEffect(() => {
       try {
         const timer = setTimeout(async() => {
@@ -117,7 +120,7 @@ export default function Home() {
             body: JSON.stringify(deletedPost),
             headers: new Headers({ "Content-type": "application/json" })
           });
-        }, 3600000);
+        }, 3600000); //3600000 ms is 60 minutes
 
         return () => clearTimeout(timer);
       } catch (error) {
@@ -127,20 +130,26 @@ export default function Home() {
     }, [currentPost]);
 
 
-  if (mode === "view" && !(currentUser.firstName)){
+  if (mode === "view" && !(currentUser.firstName)) {
+
     profile = <Profile changeMode = {changeMode} />
-  } else if (mode === "view" && currentUser.firstName){
+
+  } else if (mode === "view" && currentUser.firstName) {
 
     navBar = <NavBar user={currentUser} complete={complete}/>;
+    console.log(posts);
     statusBoard = <StatusBoard session={session} currentUser={currentUser} posts={posts}/>
 
-  } else if (mode === "login"){
+  } else if (mode === "login") {
+
     log = <Login/>
     logo = <img src="/ScoopLogo3.png" alt="Logo"/>
+
     if (session) {
       setUser(session.user);
       setMode("view");
     }
+
   }
 
   return (

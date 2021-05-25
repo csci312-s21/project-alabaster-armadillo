@@ -1,16 +1,14 @@
 
-import React from "react";
+import React, { useState } from "react";
 import {makeStyles } from "@material-ui/core/styles";
 
 import { withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-
-
-
 import Box from "@material-ui/core/Box"
 import EnterStatus from "../../src/components/EnterStatus";
 import Login from "../components/Login";
+import SearchBar from "./SearchBar";
 
 const StyledAppBar = withStyles({
   root: {
@@ -53,20 +51,28 @@ const useStyles = makeStyles((theme) => ({
 export default function NavBar({user, complete, updateTime}) {
   const classes = useStyles();
 
+  const [searchTerm, setSearchTerm] = useState("");
+
   return (
     <div className={classes.grow}>
       <StyledAppBar position="sticky">
         <Toolbar>
         <img src="/ScoopLogo_clipped.png" alt="Logo"  width="243" height="144" align = "left"/>
          
-        
+        <div className={classes.search}>
+            <SearchBar
+              placeholder="Search…"
+              searchTerm={searchTerm}
+              setTerm={setSearchTerm}
+            />
+        </div>
           <Box margin = {5}>
           <Login> </Login>
           </Box>
         </Toolbar>
         <EnterStatus user={user} complete={complete} updateTime={updateTime}/>
       </StyledAppBar>
-    
+      
     </div>
   );
 }
