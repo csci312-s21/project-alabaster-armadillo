@@ -15,24 +15,10 @@ describe("EnterStatus tests", () => {
     post = {
       title: "Title of sample article",
       contents: "Contents of the sample article",
-      edited: new Date("2020-06-10T14:54:40Z").toLocaleString(),
+      edited: new Date("2020-06-10T14:54:40Z").toLocaleString()
     };
 
     handler.mockReset();
-  });
-
-  test("EnterStatus returns new post", () => {
-    const { container } = render(<EnterStatus complete={handler} />);
-    const contentsInput = container.querySelector("textarea");
-    const postButton = screen.getByRole("button", { name: "Post" });
-    fireEvent.change(contentsInput, { target: { value: post.contents } });
-    fireEvent.click(postButton);
-
-    expect(handler).toHaveBeenCalled();
-
-    const newPost = handler.mock.calls[0][0]; // value the handler was called with
-
-    expect(newPost.contents).toEqual(post.contents);
   });
 
   test("Post button is disabled without contents", () => {
@@ -61,20 +47,4 @@ describe("EnterStatus tests", () => {
     expect(handler).toHaveBeenCalledWith();
   });
 
-  /*
-  test("New post has current date", () => {
-    const referenceDate = new Date();
-    const { container } = render(<EnterStatus complete={handler} />);
-    const contentsInput = container.querySelector("textarea");
-    const postButton = screen.getByRole("button", { name: "Post" });
-
-    fireEvent.change(contentsInput, { target: { value: post.contents } });
-
-    fireEvent.click(postButton);
-
-    const newPost = handler.mock.calls[0][0]; // value the handler was called with
-    const dateDiff = new Date(newPost.timestamp) - referenceDate;
-    expect(dateDiff).toBeGreaterThanOrEqual(0);
-  });
-  */
 });

@@ -1,0 +1,13 @@
+.filled {
+  color: red;
+}
+
+.empty {
+  color: rgb(200, 200, 200);
+
+}
+
+.self {
+  color: rgb(141, 141, 141);
+
+}

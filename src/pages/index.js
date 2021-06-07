@@ -1,98 +1,155 @@
 import Head from "next/head";
 import StatusBoard from "../../src/components/StatusBoard";
-import EnterStatus from "../../src/components/EnterStatus";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Login from "../components/Login";
+import Profile from "../components/Profile";
 import styles from "../styles/Home.module.css";
-import {useSession} from "next-auth/client";
-import Button from "@material-ui/core/Button";
-
+import { useSession } from "next-auth/client";
 import NavBar from "../components/NavBar";
-
-// import {
-//   knex,
-//   getUsers,
-//   getUser,
-//   deleteUser,
-//   updateUser,
-//   addUser
-// } from "../lib/backend-utils";
 
 export default function Home() {
   const [session] = useSession();
-  const date = new Date();
-  const currentTime = date.toISOString();
-
-  const [posts, updatePosts] = useState(
-    [{key: "James", user:"James", contents:"This is a post.", timestamp:currentTime.toLocaleString("en-US", {timeZone: "UTC"}), likes:["Kaylen", "Yaqi", "Gretchen"],tags:[{value:"ross", name:"Ross"},{value:"atwater", name:"Atwater"}]}]
-  );
+  const [posts, updatePosts] = useState();
   const [mode, setMode] = useState("login");
   const [currentUser, setUser] = useState("");
+  const [currentPost, setPost] = useState("")
 
   let statusBoard;
-  let enterStatus;
   let log;
-  let postButton;
   let navBar;
   let logo;
+  let profile;
 
- const complete = function com(newPost) {
+  useEffect(() => {
+    const getData = async () => {
+      if (session) {
 
-  if(newPost){
-    /*
-    if(posts.user === currentUser){
-      console.log("UPDATING POST!");
-      let copyPosts = posts.map((p) => {
-        if(p.user === newPost.user){
-          return newPost; 
-        }else{
-          return p;
+        try {
+          const response = await fetch(`/api/posts/${session.user.id}`);
+          const user = await response.json();
+          setUser(user);
+          setPost(user.post);
+        } catch (error) {
+          console.log(error);
         }
-      updatePosts(copyPosts);
-      });
 
-   }else{
-      console.log("ADDING POST!");
-     //Create deep copy of collection
-      let copyPosts = JSON.parse(JSON.stringify(posts));
-      //Add post to copy of posts data
-      copyPosts = [...copyPosts, newPost];
-      updatePosts(copyPosts);
-   }
-   */
-    //Create deep copy of collection
-      let copyPosts = JSON.parse(JSON.stringify(posts));
-      //Add post to copy of posts data
-      copyPosts = [...copyPosts, newPost];
-      updatePosts(copyPosts);
-      setMode("view");
+      }
+    };
+    getData();
 
-    //Set timer for post to expire after certain # of seconds --> 4000 = 4 secs 
-    setTimeout(() => {
-        const finalPosts = posts.filter(post => post !== newPost);
-        updatePosts(finalPosts);
-      }, 8000) //currently timer for posts is set at 4 seconds
-  } else {
-      setMode("view");
+  }, [mode]);
+
+  //Fetch users from the server
+  
+
+  const getUsers = async () => {
+
+    if(session){
+
+      const response = await fetch(`/api/posts`);
+      if (!response.ok) {
+        throw new Error(response.statusText);
+     }
+      const userData = await response.json();
+      updatePosts(userData); //update the post data
+
+      
+    }
+
+  };
+  
+  //getUsers every time there is a change in posts
+  useEffect(() => {
+    getUsers();
+  }, [posts]);
+
+  const changeMode = async (newUser) => {
+
+    if (newUser) {
+
+      const response = await fetch(`/api/posts/${session.user.id}`);
+
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+
+      const user = await response.json();
+
+      setUser(user);
+      setPost(user.post);
+      //updatePosts(user);
+
+      if (newUser) {
+        setMode("view");
+      }
+
+    }
+
+    
   }
-}
 
-  if (mode === "view"){
-    navBar = <NavBar/>;
-    statusBoard = <StatusBoard posts={posts}/>
-    postButton = <Button variant="contained" onClick={() => setMode("add")} type="button">Post a Status</Button>
-    //log = <Login/>
-  }else if (mode === "add"){
-    navBar = <NavBar/>;
-    enterStatus = <EnterStatus user={currentUser.email} complete={complete}/>
-    //log = <Login/>
-  }else if (mode === "login"){
+  const complete = async (newPost) => {
+
+    if (newPost) {
+
+      await fetch(
+        `/api/posts/${session.user.id}`,
+        {
+          method: "PUT",
+          body: JSON.stringify(newPost),
+          headers: new Headers({ "Content-type": "application/json" })
+        });
+
+      setMode("view");
+      setPost(newPost);
+
+    } else {
+      setMode("view");
+    }
+  }
+
+    useEffect(() => {
+      try {
+        const timer = setTimeout(async() => {
+         const deletedPost = {... currentUser, post: "", postTime: 0, postLikes: "", postReports: ""}
+
+          await fetch(
+          `/api/posts/${currentUser.user_id}`,
+          {
+            method: "PUT",
+            body: JSON.stringify(deletedPost),
+            headers: new Headers({ "Content-type": "application/json" })
+          });
+        }, 3600000); //3600000 ms is 60 minutes
+
+        return () => clearTimeout(timer);
+      } catch (error) {
+        console.log(error);
+      }
+
+    }, [currentPost]);
+
+
+  if (mode === "view" && !(currentUser.firstName)) {
+
+    profile = <Profile changeMode = {changeMode} />
+
+  } else if (mode === "view" && currentUser.firstName) {
+
+    navBar = <NavBar user={currentUser} complete={complete}/>;
+    console.log(posts);
+    statusBoard = <StatusBoard session={session} currentUser={currentUser} posts={posts}/>
+
+  } else if (mode === "login") {
+
     log = <Login/>
     logo = <img src="/ScoopLogo3.png" alt="Logo"/>
+
     if (session) {
       setUser(session.user);
       setMode("view");
     }
+
   }
 
   return (
@@ -101,15 +158,12 @@ export default function Home() {
         <title>The Scoop</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <main>
-        {navBar}    
+        {navBar}
         {logo}
+        {profile}
         {log}
         {statusBoard}
-        {enterStatus}
-        {postButton}
-        <p /> 
       </main>
       <footer>A CS 312 Project </footer>
     </div>

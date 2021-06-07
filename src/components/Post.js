@@ -9,90 +9,106 @@ Properties within the post object: user refers to author of the post, timestamp 
 import PropTypes from "prop-types";
 import styles from "../styles/Post.module.css";
 import { useState, useEffect } from "react";
+import Box from "@material-ui/core/Box";
+import Toolbar from "@material-ui/core/Toolbar";
+import Grid from "@material-ui/core/Grid";
 
-export default function Post({ post }) {
-  const [likes, setLikes] = useState();
-  const tags = post.tags.map((postTag)=>(<box key={postTag.name} className = {styles.tags}>{postTag.name}</box>));
+import React from "react";
+
+import LikeButton from "../components/LikeButton";
+import ReportButton from "../components/ReportButton";
+
+
+export default function Post({ user, currentUser, session }) {
+
+  const [liked, setLike] = useState("unlike");
+  const [reported, setReport] = useState("unreported");
+  const [counter, setCounter] = useState(0);
+
+   let isLiked;
+    if(liked === "like"){
+    isLiked = true;
+  }
+  else{
+    isLiked = false;
+  }
+
+
+  const handleClick = async (action) => {
+
+    let likeUserArray = JSON.parse(user.postLikes);
+
   
+    if(action === "like"){
+      setLike("like");
+      likeUserArray.push(`${currentUser.firstName  }_${  currentUser.lastName}`);
+    }
+    else{ //if someone unlikes a post, remove their name from the array)
+      setLike("unlike");
+      likeUserArray = likeUserArray.filter(likeUser => likeUser !== (`${currentUser.firstName  }_${  currentUser.lastName}`));
+    }
+    likeUserArray= JSON.stringify(likeUserArray);
+     const updateUserPost = {...user, postLikes: likeUserArray };
+     await fetch(
+      `/api/posts/${session.user.id}`,
+      {
+        method: "PUT",
+        body: JSON.stringify(updateUserPost),
+        headers: new Headers({ "Content-type": "application/json" }),
+      });
+  }
 
+   const handleClickReport = (action) => {
+    if(action !== reported){
+      setReport(action);
+    }
+  }
 
-  const [counter, setCounter] = useState(8);
-
+  let isReported;
+    if(reported === "reported"){
+    isReported = true;
+  }
+  else{
+    isReported = false;
+  }
   useEffect(() => {
-    const timer = counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
+
+    const timer = counter <= 3600000 && setInterval(() => setCounter(counter + 1), 1000);
     return () => clearInterval(timer);
+
   }, [counter]);
 
-
-/*
-  const calculateTimeLeft = () => {
-    const startTime = new Date(post.timestamp);
-    let endTime = new Date();
-    endTime.setSeconds(endTime.getSeconds() + 10000);
-    let difference = +new Date(endTime) - +new Date(startTime);
-    let timeLeft = {};
-
-  if (difference > 0) {
-    timeLeft = {
-      days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-      hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-      minutes: Math.floor((difference / 1000 / 60) % 60),
-      seconds: Math.floor((difference / 1000) % 60)
-    };
-  }
-    return timeLeft;
-  }
-
-
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-
-
-  // Re-render timer every 1 second
-  useEffect(() => {
-    const timer=setTimeout(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
-    // Clear timeout if the component is unmounted
-    return () => clearTimeout(timer);
-  });
-
-  const timerComponents = [];
-
-  Object.keys(timeLeft).forEach((interval) => {
-    if (!timeLeft[interval]) {
-      return;
-    }
-
-    timerComponents.push(
-    <span>
-      {timeLeft[interval]} {interval}{" "}
-    </span>
-  );
-});
-*/
-
     return (
+      <Box
+        justifyContent="center"
+        alignItems="center"
+        color="#000000"
+        bgcolor= "#FFFFFF"
+        fontFamily = "Courier New"
+        width = "600px"
+        height = "180px"
+        padding= "0px 0px 0px 0px"
+        margin= "20px 20px 20px 20px"
+        boxShadow= "0 3px 5px 2px rgba(255, 105, 135, .3)"
+        hyphens = "manual" >
 
-    <div className = {styles.post} >
-      <h2> { post.user } </h2>
-      <p> { post.contents }</p>
-      
-      <p className = {styles.timestamp}>{post.timestamp}</p>
+        <h3 className = {styles.userName}> {user.firstName} { user.lastName} </h3>
+        <p className = {styles.postText}> { user.post }</p>
 
-      <div >
-        <ul>{tags}</ul>
-      </div>
-
-      <p> {counter}</p>
-
-      <span className = {styles.like} onClick={() => setLikes(likes)} type="button">♥</span>
-    </div>
-
-    );
+        <Toolbar>
+          <Grid justify="space-between" container>
+            <Grid item>
+              <LikeButton selfPost = {false} liked = {isLiked} handleClick = {handleClick}>  </LikeButton>
+              <ReportButton reported = {isReported} handleClick = {handleClickReport} > </ReportButton>
+            </Grid>
+            <Grid item >
+              <p className = {styles.counter}> {counter}</p>
+            </Grid>
+          </Grid>
+        </Toolbar>
+      </Box>
+  );
 }
-
 Post.propTypes = {
-  post: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
 };
-
-//<small> { counter }</small>

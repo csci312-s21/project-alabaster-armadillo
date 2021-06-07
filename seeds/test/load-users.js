@@ -7,5 +7,5 @@ exports.seed = async function(knex) {
   // Deletes ALL existing entries
   await knex("panthers").del();
   // load in the sample articles
-  await knex.batchInsert("panthers", data, 2);
+  await knex.batchInsert("panthers", data, 100);
 };

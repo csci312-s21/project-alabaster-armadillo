@@ -1,13 +1,34 @@
 [
   {
-    "name": "Sophie Eisenberg",
-    "email": "seisenberg@middlebury.edu",
-    "image": "image"
+    "firstName": "Sophie",
+    "lastName": "Eisenberg",
+    "post": "Pair-programming at the Grille!",
+    "postTime": "",
+    "postLikes": "",
+    "postReports": "",
+    "image": "image",
+    "user_id": 2
   },
 
   {
-    "name": "Gretchen Doyle",
-    "email": "gldoyle@middlebury.edu",
-    "image": "image"
+    "firstName": "Gretchen",
+    "lastName": "Doyle",
+    "post": "Wooohooo coding!",
+    "postTime":"",
+    "postLikes": "", 
+    "postReports": "",
+    "image": "image",
+    "user_id": 4
+  },
+
+  {
+    "firstName": "Hannah",
+    "lastName": "Rigdon",
+    "post": "Let's gooooo I'm a database queeeeen!",
+    "postTime":"",
+    "postLikes": "", 
+    "postReports": "",
+    "image": "image",
+    "user_id": 1
   }
 ]

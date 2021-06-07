@@ -1,13 +1,15 @@
-
 exports.up = function (knex) {
   return knex.schema.createTable("panthers", (table) => {
-    table.increments("id");
+    table.integer("user_id");
     table.string("firstName").notNullable();
     table.string("lastName").notNullable();
-    table.string("email").unique().notNullable();
     table.text("post");
-    table.specificType("friends", "text ARRAY");
-    table.specificType("pendingFriends", "text ARRAY");
+    table.integer("postTime");
+    table.string("postLikes");
+    table.string("postReports");
+    table.string("image").notNullable();
+
+    table.foreign("user_id").references("users.id").onDelete("CASCADE");
   });
 };
 

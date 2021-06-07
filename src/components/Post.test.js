@@ -1,48 +1,40 @@
 /*
 Tests to see if all three features of a post is displayed.
-*/ 
+*/
 import { render } from "@testing-library/react";
 import Post from "./Post";
 
+
+const sample = {
+  firstName: "Yaqi",
+  lastName: "Huang",
+  post: "Mark your calendars for Mischords May 20!",
+  postTime: 59,
+  postLikes: "",
+  postReports: "",
+  image: "image"
+};
+
+
 describe("Post tests", () => {
-  let post;
+
+  let samplePost;
 
   beforeEach(() => {
-    post = {
-      user: "Name of sample user",
-      contents: "Body of the sample post",
-      timestamp: new Date("2020-06-10T14:54:40Z").toLocaleString(),
-      tags: [{value:"ross", name:"Ross"},{value:"atwater", name:"Atwater"}]
-    };
+    samplePost = {... sample}
   });
 
   test("user name is displayed", () => {
-    const { getByText } = render(<Post post={post} />);
-    expect(getByText(post.user)).toBeInTheDocument();
-    expect(getByText(post.user)).toBeVisible();
+    const { getByText } = render(<Post user={samplePost} />);
+    expect(getByText("Yaqi Huang")).toBeInTheDocument();
+    expect(getByText("Yaqi Huang")).toBeVisible();
   });
 
 
   test("content is displayed", () => {
-    const { getByText } = render(<Post post={post} />);
-    expect(getByText(post.contents)).toBeInTheDocument();
-    expect(getByText(post.contents)).toBeVisible();
-  });
-
-  test("timestamp is displayed", () => {
-    const { getByText } = render(<Post post={post} />);
-    const expectedDate = new Date(post.timestamp).toLocaleString();
-    expect(getByText(expectedDate)).toBeInTheDocument();
-    expect(getByText(expectedDate)).toBeVisible();
-  });
-
-  test("tag is displayed", () => {
-    const { getByText } = render(<Post post={post} />);
-    post.tags.forEach((posttag)=>{
-      expect(getByText(posttag.name)).toBeInTheDocument();
-      expect(getByText(posttag.name)).toBeVisible();
-      })
-    
+    const { getByText } = render(<Post user={samplePost} />);
+    expect(getByText(samplePost.post)).toBeInTheDocument();
+    expect(getByText(samplePost.post)).toBeVisible();
   });
 
 });
